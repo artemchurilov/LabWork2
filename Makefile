@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -c -std=c++17 -I. -Werror -Wpedantic -Wall -g -fPIC
 
-TARGET = obj
+TARGET = prog
 LIBPROJECT = $(TARGET).a
 TESTPROJECT = test-$(TARGET)
 
