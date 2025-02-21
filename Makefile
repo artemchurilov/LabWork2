@@ -1,14 +1,14 @@
 CXX = g++
 CXXFLAGS = -c -std=c++17 -I. -Werror -Wpedantic -Wall -g -fPIC
 
-TARGET = player
+TARGET = obj
 LIBPROJECT = $(TARGET).a
 TESTPROJECT = test-$(TARGET)
 
-SOURCES = player.cpp main.cpp
+SOURCES = obj.cpp main.cpp entity.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 
-TEST_SOURCES = test-player.cpp
+TEST_SOURCES = test-obj.cpp test-entity.cpp
 TEST_OBJECTS = $(TEST_SOURCES:.cpp=.o)
 
 LDXXFLAGS = -L. -l:$(LIBPROJECT)
