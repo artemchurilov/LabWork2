@@ -3,7 +3,7 @@
 */
 
 #include <gtest/gtest.h>
-#include "entity.h"
+#include "../src/entity/entity.h"
 
 TEST(EntityTest, EntityGetters)
 {
@@ -29,22 +29,4 @@ TEST(Entity, EntitySetters)
     EXPECT_EQ(test.get_isCollision(), 1);
     EXPECT_EQ(test.get_movespeed(), 42);
     EXPECT_EQ(test.get_counterHP(), 42);
-}
-
-TEST(Entity, EntityMovement)
-{
-    Entity test(1, 1, 1, 10);
-    test.moveDown();
-    EXPECT_EQ(test.get_posX(), 1);  
-    EXPECT_EQ(test.get_posY(), 0);
-    test.moveUp();
-    EXPECT_EQ(test.get_posX(), 1);  
-    EXPECT_EQ(test.get_posY(), 1); 
-    test.set_movespeed(3); 
-    test.moveLeft();
-    EXPECT_EQ(test.get_posX(), -2);  
-    EXPECT_EQ(test.get_posY(), 1); 
-    test.moveRight();
-    EXPECT_EQ(test.get_posX(), 1);  
-    EXPECT_EQ(test.get_posY(), 1); 
 }

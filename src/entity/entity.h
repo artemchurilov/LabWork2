@@ -5,26 +5,21 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include "obj.h"
+#include "../obj/obj.h"
 
 class Entity: public Obj
 {
 public:
-    Entity(int new_posX, int new_posY,int movespeed, int counterHP);
+    Entity(int new_posX, int new_posY,float new_movespeed, int new_counterHP);
     ~Entity();
-
-    void moveUp();
-    void moveRight();
-    void moveDown();
-    void moveLeft();
-
-    void set_movespeed(int new_movespeed);
-    int get_movespeed();
+    
+    void set_movespeed(float new_movespeed);
+    float get_movespeed();
 
     void set_counterHP(int new_counterHP);
     int get_counterHP();
 private:
-    int movespeed;
+    float movespeed;
     int counterHP;
 };
 
