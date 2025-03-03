@@ -2,7 +2,7 @@ name: C++ CI
 
 on:
   push:
-    branches: [CI-test][docs][minimal-requirements]
+    branches: [CI-test, docs, minimal-requirements]
   pull_request:
     branches: [main]
 
