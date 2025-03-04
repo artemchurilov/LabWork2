@@ -1,4 +1,9 @@
-#include "menu.h"
+/* Artem Churilov st130184@student.spbu.ru
+    LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
+*/
+#include <cstdlib>
+
+#include "Menu.h"
 #include <iostream>
 
 void startMenu()
@@ -42,8 +47,7 @@ int exitGame()
     std::cout <<"\033c";
     std::cout <<"~+~-~+~-~+~-~+~-~+~-~+~-~"<<std::endl<< "     Forest Friends" <<std::endl<<"~+~-~+~-~+~-~+~-~+~-~+~-~"<<std::endl<<std::endl;
     std::cout << "Goodbye! Thanks for playing FF!"<<std::endl;
-    //??????;  
-    return 0;
+    exit(EXIT_FAILURE);
 };
 void settings()
 {

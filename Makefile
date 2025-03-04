@@ -9,11 +9,11 @@ TESTPROJECT = test-$(TARGET)
 SRC_DIR = src
 TEST_DIR = tests
 
-SOURCES = $(SRC_DIR)/main.cpp $(SRC_DIR)/obj/obj.cpp $(SRC_DIR)/entity/entity.cpp $(SRC_DIR)/player/player.cpp $(SRC_DIR)/menu/menu.cpp $(SRC_DIR)/battlefield/battlefield.cpp
+SOURCES = $(shell find $(SRC_DIR) -name '*.cpp')
 OBJECTS = $(SOURCES:.cpp=.o)
 DEPENDS = $(OBJECTS:.o=.d)
 
-TEST_SOURCES = $(TEST_DIR)/test-obj.cpp $(TEST_DIR)/test-entity.cpp $(TEST_DIR)/test-player.cpp
+TEST_SOURCES := $(shell find $(TEST_DIR) -name '*.cpp')
 TEST_OBJECTS = $(TEST_SOURCES:.cpp=.o)
 TEST_DEPENDS = $(TEST_OBJECTS:.o=.d)
 
