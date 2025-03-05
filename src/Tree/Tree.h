@@ -12,7 +12,7 @@ public:
     
     char getChar() const override;
     bool isPassable() const override;
-
+    void onInteract(Player& player) override;
     int getFruitCount();
     void addFruitCount(int _fruitCount);
     void setFruitCount(int _fruitCount);
@@ -20,4 +20,5 @@ private:
     int fruitCount;
 };
 
+          
 #endif

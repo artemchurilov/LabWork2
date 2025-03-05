@@ -10,10 +10,12 @@ class GameObject
     public:
         GameObject(int x, int y, bool collidable);
         virtual ~GameObject() = default;        
-        virtual char getChar() const = 0;
+        virtual char getChar() const=0;
         virtual bool isPassable() const;
-        //virtual void onPlayerEnter(Player& player) = 0;
 
+        virtual void onInteract(class Player& player) {
+        (void)player;
+        }
         int getX();
         void setX(int _x);
         int getY();

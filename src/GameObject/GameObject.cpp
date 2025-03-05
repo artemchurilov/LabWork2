@@ -11,6 +11,7 @@ x(x), y(y), isCollidable(collidable)
 
 };
 
+
 bool GameObject::isPassable() const
 {
     return false;

@@ -3,11 +3,21 @@
 */
 #include "Tree.h"
 #include "iostream"
+#include "../Player/Player.h"
 
-Tree::Tree(int x, int y) : StaticObj(x, y, true), fruitCount(5) 
+Tree::Tree(int x, int y) : StaticObj(x, y, true), fruitCount(5)
 {
 
 };
+
+void Tree::onInteract(Player& player)
+{        
+    if (player.getEnergy()>=5)
+    {
+        player.addEnergy(-5);
+        player.addWood(1);
+    }
+}
 
 bool Tree::isPassable() const
 {
@@ -16,7 +26,7 @@ bool Tree::isPassable() const
 
 char Tree::getChar() const 
 { 
-    return 'T'; 
+    return 'T';
 };
 
 int Tree::getFruitCount()
@@ -31,13 +41,3 @@ void Tree::setFruitCount(int _fruitCount)
 {
     fruitCount=_fruitCount;
 };
-
-
-/*void Tree::onPlayerEnter(Player& player)
-{
-    if (fruitCount > 0) {
-        player.addWood(1);
-        fruitCount--;
-        std::cout << "Собрано 1 дерево! Осталось: " << fruitCount << std::endl;
-    }
-};*/

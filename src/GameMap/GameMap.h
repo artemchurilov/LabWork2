@@ -5,11 +5,12 @@
 #include "vector"
 #include "../Player/Player.h"
 #include "../Tree/Tree.h"
+#include "../Stone/Stone.h"
 
 class GameMap {
     private:
-        const int width = 10;
-        const int height = 10;
+        const int width = 6;
+        const int height = 6;
         Player* player;
         std::vector<std::vector<GameObject*>> grid;
     

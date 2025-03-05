@@ -13,6 +13,7 @@ int main() {
         std::cout <<"\033c";
         std:: cout <<"~+~-~+~-~+~-~+~-~+~-~+~-~"<<std::endl<< "     Forest Friends" <<std::endl<<"~+~-~+~-~+~-~+~-~+~-~+~-~"<<std::endl<<std::endl;
         gameMap.draw();
+
         std::cout <<std::endl<< "Input direction (w/a/s/d) or q for exit: ";
         std::cin >> input;   
         if(input == 'q') break;
