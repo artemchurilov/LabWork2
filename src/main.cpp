@@ -9,14 +9,19 @@
 #include "Cell.h"
 #include "../include/const.h"
 
+#include "StaticObj.h"
+#include "DynamicObj.h"
+
 int main() {
     Map map(MAP_WIDTH, MAP_HEIGHT);
-    map.setCell(1, 1, CellType::WALL);
-    map.setCell(2, 2, CellType::WALL);
-    map.setCell(3, 3, CellType::WALL);
-    map.setCell(0, 0, CellType::PLAYER);
+    
+    auto player = std::make_shared<DynamicObj>('P');
+    auto tree = std::make_shared<StaticObj>('T');
 
-    // Рендерим карту
+    map.placeObject(0, 0, player);
+    map.placeObject(2, 3, tree);
+    map.placeObject(4, 4, tree);
+
     map.render();
 
     return 0;

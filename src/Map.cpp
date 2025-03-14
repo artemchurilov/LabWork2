@@ -5,29 +5,29 @@
 #include "Map.h"
 #include <iostream>
 
-Map::Map(int width, int height) : width(width), height(height)
+Map::Map(int width, int height) : width(width), height(height) {
+    grid.resize(height, std::vector<Cell>(width));
+    
+    // Добавляем стены
+    grid[1][1].setTerrain(TerrainType::WALL);
+    grid[2][2].setTerrain(TerrainType::WALL);
+    grid[3][3].setTerrain(TerrainType::WALL);
+}
+
+
+void Map::placeObject(int x, int y, std::shared_ptr<GameObject> obj)
 {
-    for (int y = 0; y < height; ++y) {
-        std::vector<std::shared_ptr<Cell>> row;
-        for (int x = 0; x < width; ++x) {
-            row.push_back(std::make_shared<Cell>());
+        if (x >= 0 && x < width && y >= 0 && y < height) {
+            grid[y][x].setObject(obj);
         }
-        grid.push_back(row);
-    }
-};     
+   
+};
 
 void Map::render() const {
-for (int y = 0; y < height; ++y) {
-    for (int x = 0; x < width; ++x) {
-        std::cout << grid[y][x]->getSymbol() << ' ';
-    }
-    std::cout << std::endl;
-}
-}
-
-void Map::setCell(int x, int y, CellType type)
-{
-    if (x >= 0 && x < width && y >= 0 && y < height) {
-        grid[y][x]->setType(type);
+    for (const auto& row : grid) {
+        for (const auto& cell : row) {
+            std::cout << cell.getSymbol() << ' ';
+        }
+        std::cout << '\n';
     }
 }

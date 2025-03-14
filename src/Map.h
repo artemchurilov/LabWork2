@@ -12,12 +12,11 @@
 class Map {
     public:
         Map(int width, int height);
-        void setCell(int x, int y, CellType type);
+        void placeObject(int x, int y, std::shared_ptr<GameObject> obj);
         void render() const;
-    
     private:
         int width, height;
-        std::vector<std::vector<std::shared_ptr<Cell>>> grid;
+        std::vector<std::vector<Cell>> grid;
     };
     
 #endif

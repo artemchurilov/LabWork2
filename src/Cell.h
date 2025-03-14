@@ -5,20 +5,23 @@
 #ifndef CELL_H
 #define CELL_H
 
-enum class CellType {
-    EMPTY,
-    WALL,
-    PLAYER
+#include <memory>
+#include "GameObject.h"
+
+enum class TerrainType {
+    GROUND,
+    WALL
 };
 
 class Cell {
-public:
-    Cell(CellType type = CellType::EMPTY);
-    void setType(CellType newType);
-    char getSymbol() const;
-
-private:
-    CellType type;
-};
-
+    public:
+        Cell();
+        void setTerrain(TerrainType type);
+        void setObject(std::shared_ptr<GameObject> object);
+        char getSymbol() const;
+    
+    private:
+        TerrainType terrain;
+        std::shared_ptr<GameObject> obj;
+    };
 #endif

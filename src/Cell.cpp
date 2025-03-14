@@ -3,19 +3,16 @@
 */
 #include "Cell.h"
 
-char Cell::getSymbol() const
-{
-    switch (type) {
-        case CellType::EMPTY: return ' ';
-        case CellType::WALL: return '#';
-        case CellType::PLAYER: return 'P';
-        default: return '?';
-    }
+
+Cell::Cell(): terrain(TerrainType::GROUND), obj(nullptr) {}
+        
+char Cell::getSymbol() const{
+    if (obj) return obj->getSymbol();
+    return terrain == TerrainType::GROUND ? '.' : '#';
 }
 
-Cell::Cell(CellType type): type(type) {}
+void Cell::setObject(std::shared_ptr<GameObject> object)
+{ obj = object; }
 
-void Cell::setType(CellType newType)
-{
-    type = newType;
-}
+void Cell::setTerrain(TerrainType type) 
+{ terrain = type; }
