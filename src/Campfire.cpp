@@ -9,7 +9,7 @@ char Campfire::getSymbol() const
     return 'C';
 }
 
-void Campfire::interact(GameState& state) const
+void Campfire::interact(GameState& state)
 {
     state.inventory.hp = 100;
     state.inventory.energy = 50;

@@ -10,6 +10,6 @@ class Campfire : public GameObject
 {
 public:
     char getSymbol() const override;
-    void interact(GameState& state) const override;
+    void interact(GameState& state) override;
 };
 #endif

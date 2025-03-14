@@ -14,7 +14,7 @@ public:
     {
         return true;
     };
-    virtual void interact(GameState&) const {};
+    virtual void interact(GameState&) {};
 };
 
 #endif

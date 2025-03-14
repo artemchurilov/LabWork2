@@ -3,7 +3,7 @@
 #include "../src/DynamicObj.h"
 #include "../src/Cell.h"
 #include "../src/GameMap.h"
-#include <memory>
+#include "../src/Shop.h"
 
 
 #include "gtest/gtest.h"
@@ -94,13 +94,7 @@ TEST(GameObjectTest, CampfireInteraction) {
     EXPECT_EQ(state.day, 2);
 }
 
-TEST(GameObjectTest, MobInteraction) {
-    GameState state;
-    Mob('M', 20, 10).interact(state);
-    EXPECT_EQ(state.inventory.hp, 80);
-    EXPECT_EQ(state.inventory.energy, 30);
-    EXPECT_EQ(state.inventory.gold, 10);
-}
+
 
 TEST(CellTest, ObjectInteraction) {
     Cell cell;
@@ -116,4 +110,58 @@ TEST(CellTest, PassabilityCheck) {
     EXPECT_FALSE(cell.isPassable());
 }
 
+
+TEST(GameStateTest, DeathResetsResources) {
+    GameState state;
+    state.inventory = {0, 0, 100, 5, 3, 2, 3}; // HP=0
+    Mob('D', 100, 0).interact(state); // Вызовет handleDeath
+    
+    EXPECT_EQ(state.inventory.hp, 100);
+    EXPECT_EQ(state.inventory.gold, 0);
+    EXPECT_EQ(state.inventory.wood, 0);
+    EXPECT_EQ(state.inventory.stone, 0);
+    EXPECT_EQ(state.inventory.sword_level, 2); // Сохраняются уровни
+    EXPECT_EQ(state.inventory.shield_level, 3);
+    EXPECT_EQ(state.day, 2);
+}
+
+TEST(MobTest, DamageCalculation) {
+    GameState state;
+    state.inventory.shield_level = 3;
+    Mob('M', 25, 10).interact(state);
+    
+    // 25 - (3*5) = 10 damage
+    EXPECT_EQ(state.inventory.hp, 90);
+    EXPECT_EQ(state.inventory.gold, 10);
+    EXPECT_EQ(state.last_message, "Fought M! Lost 10 HP. Got 10 gold.");
+}
+
+TEST(ShopTest, SuccessfulUpgrade) {
+    GameState state;
+    state.inventory.gold = 100;
+    Shop shop;
+    
+    std::istringstream input("1");
+    std::cin.rdbuf(input.rdbuf());
+    
+    shop.interact(state);
+    
+    EXPECT_EQ(state.inventory.sword_level, 2);
+    EXPECT_EQ(state.inventory.gold, 50);
+    EXPECT_EQ(state.last_message, "Sword upgraded to level 2");
+}
+
+TEST(ShopTest, NotEnoughGold) {
+    GameState state;
+    state.inventory.gold = 30;
+    Shop shop;
+    
+    std::istringstream input("2");
+    std::cin.rdbuf(input.rdbuf());
+    
+    shop.interact(state);
+    
+    EXPECT_EQ(state.inventory.shield_level, 1);
+    EXPECT_EQ(state.last_message, "Not enough gold!");
+}
 

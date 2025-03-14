@@ -10,6 +10,7 @@
 #include "Mob.h"
 #include "Campfire.h"
 #include "Stone.h"
+#include "Shop.h"
 
 GameMap::GameMap(int w, int h) : width(w), height(h)
 {
@@ -35,24 +36,23 @@ bool GameMap::movePlayer(int dx, int dy, GameState& state)
     return false;
 }
 
-void GameMap::render(const GameState& state) const
-{
+void GameMap::render(const GameState& state) const {
     system("clear");
     std::cout << "Day: " << state.day << "\n\n";
-
-    for (int y = 0; y < height; ++y)
-    {
-        for (int x = 0; x < width; ++x)
-        {
+    
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
             std::cout << (x == playerX && y == playerY ? 'P' : grid[y][x].getSymbol()) << " ";
         }
         printInventoryLine(y, state);
         std::cout << "\n";
     }
+    std::cout << "\n" << state.last_message << "\n";
 }
 
-void GameMap::initMap()
-{
+
+void GameMap::initMap() {
+    grid[4][2].setObject(std::make_shared<Shop>());
     grid[1][2].setObject(std::make_shared<Tree>());
     grid[3][1].setObject(std::make_shared<Campfire>());
     grid[4][4].setObject(std::make_shared<Stone>());

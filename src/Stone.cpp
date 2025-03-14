@@ -16,7 +16,7 @@ bool Stone::isPassable() const
     return false;
 }
 
-void Stone::interact(GameState& state) const
+void Stone::interact(GameState& state)
 {
     state.inventory.energy -= 15;
     state.inventory.stone++;

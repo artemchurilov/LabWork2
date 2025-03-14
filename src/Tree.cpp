@@ -13,7 +13,7 @@ bool Tree::isPassable() const
 {
     return false;
 }
-void Tree::interact(GameState& state) const
+void Tree::interact(GameState& state)
 {
     state.inventory.energy -= 10;
     state.inventory.wood++;

@@ -14,7 +14,7 @@ class Stone : public GameObject
 public:
     char getSymbol() const override;
     bool isPassable() const override;
-    void interact(GameState& state) const override;
+    void interact(GameState& state) override;
 };
 
 #endif

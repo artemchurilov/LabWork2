@@ -2,16 +2,23 @@
     LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
 */
 
+#ifndef SHOP_H
+#define SHOP_H
+
+
 #include "GameObject.h"
-class Mob : public GameObject {
+
+class Shop : public GameObject {
     public:
-        Mob(char s, int dmg, int reward);
         char getSymbol() const override;
         bool isPassable() const override;
+        
+        void printSnakeArt();
         void interact(GameState& state) override;
-private:
-    void handleDeath(GameState& state);
-    char symbol;
-    int base_damage;
-    int gold_reward;
+    
+    private:
+        
+        void showShopInterface(GameState& state);
 };
+
+#endif
