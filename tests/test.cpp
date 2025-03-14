@@ -11,7 +11,6 @@
 #include "../src/Stone.h"
 #include "../src/Mob.h"
 #include "../src/Campfire.h"
-
 int main(int argc, char **argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
@@ -163,5 +162,59 @@ TEST(ShopTest, NotEnoughGold) {
     
     EXPECT_EQ(state.inventory.shield_level, 1);
     EXPECT_EQ(state.last_message, "Not enough gold!");
+}
+
+#include "../src/CardPlayer.h"
+TEST(CardPlayerTest, Initialization) {
+    CardPlayer player;
+    EXPECT_EQ(player.getHealth(), 50);
+    EXPECT_EQ(player.getEnergy(), 3);
+    EXPECT_EQ(player.getHand().size(), 5);
+}
+
+TEST(CardPlayerTest, DamageCalculation) {
+    CardPlayer player;
+    
+    player.addBlock(5);
+    player.takeDamage(3);
+    EXPECT_EQ(player.getBlock(), 2);
+    EXPECT_EQ(player.getHealth(), 50);
+    player.takeDamage(10);
+    EXPECT_EQ(player.getBlock(), 0);
+    EXPECT_EQ(player.getHealth(), 42);
+}
+
+#include "../src/Strike.h"
+TEST(CardTest, StrikeUsage) {
+    CardPlayer player;
+    Enemy enemy;
+    Strike strike;
+    
+    strike.play(player, enemy);
+    EXPECT_EQ(enemy.isAlive(), true);
+    EXPECT_EQ(player.getEnergy(), 2);
+}
+
+#include "../src/Defend.h"
+TEST(CardTest, DefendWithWeak) {
+    CardPlayer player;
+    Enemy enemy;
+    Defend defend;
+    
+    player.addWeak(1);
+    defend.play(player, enemy);
+    EXPECT_EQ(player.getBlock(), 3);
+}
+
+
+TEST(EnemyAITest, CardPrioritization) {
+    Enemy enemy;
+    CardPlayer player;
+    
+    
+    player.takeDamage(30); 
+    enemy.executeTurn(player);
+    
+    EXPECT_LT(player.getHealth(), 20);
 }
 

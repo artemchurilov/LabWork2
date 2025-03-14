@@ -1,4 +1,8 @@
 
+/* Artem Churilov st130184@student.spbu.ru
+    LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
+*/
+
 #include "InputSystem.h"
 #include <termios.h>
 #include <unistd.h>

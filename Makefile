@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -I. -Werror -Wpedantic -Wall -Wextra -g -fPIC
-LDFLAGS = $(shell sdl2-config --libs) -lm
+LDFLAGS = -lm
 
 TARGET = prog
 LIBPROJECT = lib$(TARGET).a
