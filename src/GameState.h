@@ -5,8 +5,10 @@
 #ifndef GAMESTATE_H
 #define GAMESTATE_H
 #include <string>
-struct GameState {
-    struct {
+struct GameState
+{
+    struct
+    {
         int hp = 100;
         int energy = 50;
         int gold = 0;
@@ -15,7 +17,7 @@ struct GameState {
         int sword_level = 1;
         int shield_level = 1;
     } inventory;
-    
+
     int day = 1;
     std::string last_message;
     int campfire_x = 3;

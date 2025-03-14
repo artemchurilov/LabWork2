@@ -13,16 +13,28 @@ class GameMap
 {
 public:
     GameMap(int width, int height);
-    bool movePlayer(int dx, int dy, GameState& state);
+    void movePlayer(int dx, int dy, GameState& state);
     void render(const GameState& state) const;
+    void interactAt(int x, int y, GameState& state);
+    void getPlayerPos(int& x, int& y) const;
+    void setPlayerPos(int x, int y);
+    void toggleMap();
+
+
+    void placeObject(int x, int y, std::shared_ptr<GameObject> obj);
+    void printInventoryLine(int line, const GameState& state) const;
+    void initMap();
+    bool isPassable(int x, int y) const;
 
 private:
-    void placeObject(int x, int y, std::shared_ptr<GameObject> obj);
-    void initMap();
-    void printInventoryLine(int line, const GameState& state) const;
+
+
+
     int width, height;
     int playerX = 0, playerY = 0;
+    bool alternateMap = false;
     std::vector<std::vector<Cell>> grid;
+
 };
 
 #endif

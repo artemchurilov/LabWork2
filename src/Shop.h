@@ -8,17 +8,18 @@
 
 #include "GameObject.h"
 
-class Shop : public GameObject {
-    public:
-        char getSymbol() const override;
-        bool isPassable() const override;
-        
-        void printSnakeArt();
-        void interact(GameState& state) override;
-    
-    private:
-        
-        void showShopInterface(GameState& state);
+class Shop : public GameObject
+{
+public:
+    char getSymbol() const override;
+    bool isPassable() const override;
+
+    void printSnakeArt();
+    void interact(GameState& state) override;
+
+private:
+
+    void showShopInterface(GameState& state);
 };
 
 #endif
