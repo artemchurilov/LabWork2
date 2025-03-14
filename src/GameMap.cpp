@@ -3,6 +3,7 @@
 */
 
 #include "GameMap.h"
+#include "BossMob.h"
 #include <iostream>
 #include "StaticObj.h"
 #include <cstdlib>
@@ -117,5 +118,6 @@ void GameMap::initMap() {
     } else {
         grid[0][0] = Cell();
         grid[2][2].setObject(std::make_shared<Campfire>());
+        grid[2][4].setObject(std::make_shared<BossMob>());
     }
 }
