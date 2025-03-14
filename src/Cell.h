@@ -8,20 +8,18 @@
 #include <memory>
 #include "GameObject.h"
 
-enum class TerrainType {
-    GROUND,
-    WALL
-};
+enum class TerrainType { GROUND, WATER };
+
 
 class Cell {
     public:
         Cell();
         void setTerrain(TerrainType type);
-        void setObject(std::shared_ptr<GameObject> object);
+        void setObject(std::shared_ptr<GameObject> obj);
         char getSymbol() const;
-    
+        bool isPassable() const;
     private:
         TerrainType terrain;
-        std::shared_ptr<GameObject> obj;
+        std::shared_ptr<GameObject> object;
     };
 #endif

@@ -5,25 +5,19 @@
 
 
 Cell::Cell(): terrain(TerrainType::GROUND) {}
-
-void Cell::setTerrain(TerrainType t)
-{
-    terrain = t;
-}
+    
+void Cell::setTerrain(TerrainType t) 
+{ terrain = t; }
 
 void Cell::setObject(std::shared_ptr<GameObject> obj)
-{
-    object = obj;
-}
+{ object = obj; }
 
-bool Cell::isPassable() const
-{
+bool Cell::isPassable() const {
     if (terrain == TerrainType::WATER) return false;
     return object ? object->isPassable() : true;
 }
 
-char Cell::getSymbol() const
-{
+char Cell::getSymbol() const{
     if (object) return object->getSymbol();
     return terrain == TerrainType::GROUND ? '.' : '~';
 }

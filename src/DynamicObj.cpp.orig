@@ -4,9 +4,9 @@
 
 #include "DynamicObj.h"
 
-char DynamicObj::getSymbol() const
-{
-    return symbol;
+char DynamicObj::getSymbol() const 
+{ 
+    return symbol; 
 }
 
 DynamicObj::DynamicObj(char symbol): symbol(symbol) {}

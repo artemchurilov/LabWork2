@@ -4,14 +4,8 @@
 
 #include "StaticObj.h"
 
-char StaticObj::getSymbol() const
-{
-    return symbol;
-};
+char StaticObj::getSymbol() const { return symbol; };
 
 StaticObj::StaticObj(char s, bool pass): symbol(s), passable(pass) {}
 
-bool StaticObj::isPassable() const
-{
-    return passable;
-};
+bool StaticObj::isPassable() const { return passable; };

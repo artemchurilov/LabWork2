@@ -9,11 +9,14 @@
 
 class StaticObj : public GameObject {
     public:
-        explicit StaticObj(char symbol);
+        explicit StaticObj(char s, bool pass);
         char getSymbol() const override;
+        bool isPassable() const override;
     
     private:
         char symbol;
+        bool passable;
+    
     };
 
 #endif
