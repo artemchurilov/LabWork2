@@ -5,7 +5,6 @@
 #include "vector"
 #include "../Player/Player.h"
 #include "../Tree/Tree.h"
-#include "../Stone/Stone.h"
 
 class GameMap {
     private:

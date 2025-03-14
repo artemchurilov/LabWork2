@@ -11,7 +11,6 @@ GameMap::GameMap()
     player = new Player(width/2, height/2);
     grid[player->getY()][player->getX()] = player;
     grid[2][3] = new Tree(2, 3);
-    grid[0][0] = new Stone(0, 0);
 
 };
 
