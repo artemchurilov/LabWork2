@@ -71,23 +71,12 @@ void Game::update()
     if(state.inventory.hp <= 0) handleDeath();
 }
 
-void Game::handleDeath()
-{
-    state.last_message = "Press R to respawn at campfire";
-    render();
-    while(true)
-    {
-        if(keyPressed())
-        {
-            char c = getKey();
-            if(c == 'r' || c == 'R')
-            {
-                respawnPlayer();
-                return;
-            }
-        }
-        usleep(100000);
-    }
+void Game::handleDeath() {
+    state.inventory.hp = 100;
+    state.inventory.energy = 50;
+    state.day++;
+    gameMap.setPlayerPos(state.campfire_x, state.campfire_y);
+    state.last_message = "Respawned at campfire! Day " + std::to_string(state.day);
 }
 
 void Game::respawnPlayer()

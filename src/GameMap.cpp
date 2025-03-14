@@ -12,6 +12,7 @@
 #include "Campfire.h"
 #include "Stone.h"
 #include "Shop.h"
+#include "CardShop.h"
 
 GameMap::GameMap(int w, int h) : width(w), height(h)
 {
@@ -115,6 +116,8 @@ void GameMap::initMap() {
         grid[4][4].setObject(std::make_shared<Stone>());
         grid[2][3].setObject(std::make_shared<Mob>('M', 20, 10));
         grid[0][4].setObject(std::make_shared<Mob>('D', 1000, 50));
+        grid[2][2].setObject(std::make_shared<CardShop>());
+
     } else {
         grid[0][0] = Cell();
         grid[2][2].setObject(std::make_shared<Campfire>());

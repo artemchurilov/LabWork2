@@ -5,6 +5,7 @@
 #ifndef GAMESTATE_H
 #define GAMESTATE_H
 #include <string>
+#include <vector>
 struct GameState
 {
     struct
@@ -17,7 +18,7 @@ struct GameState
         int sword_level = 1;
         int shield_level = 1;
     } inventory;
-
+    std::vector<std::string> cards;
     int day = 1;
     std::string last_message;
     int campfire_x = 3;
