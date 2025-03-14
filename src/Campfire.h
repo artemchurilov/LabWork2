@@ -2,18 +2,14 @@
     LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
 */
 
-#ifndef DYNAMICOBJ_H
-#define DYNAMICOBJ_H
+#ifndef CAMPFIRE_H
+#define CAMPFIRE_H
 
 #include "GameObject.h"
-
-class DynamicObj : public GameObject
+class Campfire : public GameObject
 {
 public:
-    explicit DynamicObj(char symbol);
     char getSymbol() const override;
-
-private:
-    char symbol;
+    void interact(GameState& state) const override;
 };
 #endif

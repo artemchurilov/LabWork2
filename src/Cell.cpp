@@ -27,3 +27,8 @@ char Cell::getSymbol() const
     if (object) return object->getSymbol();
     return terrain == TerrainType::GROUND ? '.' : '~';
 }
+
+void Cell::interact(GameState& state) const
+{
+    if (object) object->interact(state);
+}

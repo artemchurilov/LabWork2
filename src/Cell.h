@@ -11,15 +11,17 @@
 enum class TerrainType { GROUND, WATER };
 
 
-class Cell {
-    public:
-        Cell();
-        void setTerrain(TerrainType type);
-        void setObject(std::shared_ptr<GameObject> obj);
-        char getSymbol() const;
-        bool isPassable() const;
-    private:
-        TerrainType terrain;
-        std::shared_ptr<GameObject> object;
-    };
+class Cell
+{
+public:
+    Cell();
+    void setTerrain(TerrainType type);
+    void setObject(std::shared_ptr<GameObject> obj);
+    char getSymbol() const;
+    void interact(GameState& state) const;
+    bool isPassable() const;
+private:
+    TerrainType terrain = TerrainType::GROUND;
+    std::shared_ptr<GameObject> object;
+};
 #endif

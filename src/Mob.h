@@ -2,22 +2,17 @@
     LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
 */
 
-#ifndef STATICOBJ_H
-#define STATICOBJ_H
-
 #include "GameObject.h"
-
-class StaticObj : public GameObject
+#include "GameState.h"
+class Mob : public GameObject
 {
 public:
-    explicit StaticObj(char s, bool pass);
+    Mob(char s, int dmg, int reward);
     char getSymbol() const override;
     bool isPassable() const override;
-
+    void interact(GameState& state) const override;
 private:
     char symbol;
-    bool passable;
-
+    int damage;
+    int gold_reward;
 };
-
-#endif

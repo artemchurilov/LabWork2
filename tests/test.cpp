@@ -3,9 +3,14 @@
 #include "../src/DynamicObj.h"
 #include "../src/Cell.h"
 #include "../src/GameMap.h"
-#include "../src/Player.h"
 #include <memory>
 
+
+#include "gtest/gtest.h"
+#include "../src/Tree.h"
+#include "../src/Stone.h"
+#include "../src/Mob.h"
+#include "../src/Campfire.h"
 
 int main(int argc, char **argv)
 {
@@ -51,13 +56,6 @@ TEST(GameObjectTest, DynamicObjectIsAlwaysPassable)
     EXPECT_TRUE(obj.isPassable());
 }
 
-TEST(InventoryTest, InitialValues)
-{
-    Inventory inv;
-    EXPECT_EQ(inv.hp, 100);
-    EXPECT_EQ(inv.energy, 50);
-    EXPECT_EQ(inv.gold, 0);
-}
 
 class GameMapTest : public ::testing::Test
 {
@@ -65,23 +63,57 @@ protected:
     GameMap map{5, 5};
 };
 
-TEST_F(GameMapTest, InitialPlayerPosition)
-{
-    EXPECT_TRUE(map.movePlayer(0, 0));
+TEST(GameStateTest, InitialValues) {
+    GameState state;
+    EXPECT_EQ(state.inventory.hp, 100);
+    EXPECT_EQ(state.inventory.energy, 50);
+    EXPECT_EQ(state.day, 1);
+}
+
+TEST(GameObjectTest, TreeInteraction) {
+    GameState state;
+    Tree().interact(state);
+    EXPECT_EQ(state.inventory.energy, 40);
+    EXPECT_EQ(state.inventory.wood, 1);
+}
+
+TEST(GameObjectTest, StoneInteraction) {
+    GameState state;
+    Stone().interact(state);
+    EXPECT_EQ(state.inventory.energy, 35);
+    EXPECT_EQ(state.inventory.stone, 1);
+}
+
+TEST(GameObjectTest, CampfireInteraction) {
+    GameState state;
+    state.inventory.hp = 50;
+    state.inventory.energy = 20;
+    Campfire().interact(state);
+    EXPECT_EQ(state.inventory.hp, 100);
+    EXPECT_EQ(state.inventory.energy, 50);
+    EXPECT_EQ(state.day, 2);
+}
+
+TEST(GameObjectTest, MobInteraction) {
+    GameState state;
+    Mob('M', 20, 10).interact(state);
+    EXPECT_EQ(state.inventory.hp, 80);
+    EXPECT_EQ(state.inventory.energy, 30);
+    EXPECT_EQ(state.inventory.gold, 10);
+}
+
+TEST(CellTest, ObjectInteraction) {
+    Cell cell;
+    cell.setObject(std::make_shared<Tree>());
+    GameState state;
+    cell.interact(state);
+    EXPECT_EQ(state.inventory.wood, 1);
+}
+
+TEST(CellTest, PassabilityCheck) {
+    Cell cell;
+    cell.setObject(std::make_shared<Tree>());
+    EXPECT_FALSE(cell.isPassable());
 }
 
 
-TEST_F(GameMapTest, InvalidMoves)
-{
-
-    EXPECT_FALSE(map.movePlayer(0, -1));
-    EXPECT_FALSE(map.movePlayer(-1, 0));
-}
-
-
-TEST(PlayerTest, SymbolAndInventory)
-{
-    Player p;
-    EXPECT_EQ(p.getSymbol(), 'P');
-    EXPECT_EQ(p.inventory.wood, 0);
-}

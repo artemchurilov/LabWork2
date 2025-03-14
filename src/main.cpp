@@ -8,46 +8,37 @@
 #include "GameMap.h"
 #include "Cell.h"
 #include "../include/const.h"
-#include "Inventory.h"
 
 #include <cstdlib>
-#include "Player.h"
 
-char getInput()
-{
-    char input;
-    std::cin >> input;
-    return input;
-}
 
 int main()
 {
     GameMap gameMap(MAP_WIDTH, MAP_HEIGHT);
-    Player player;
+    GameState state;
+    char input;
 
     while (true)
     {
-        gameMap.render(player.inventory);
+        gameMap.render(state);
+        std::cin >> input;
 
-        char input = getInput();
-        switch (input)
+        switch(input)
         {
         case 'w':
-            gameMap.movePlayer(0, -1);
+            gameMap.movePlayer(0, -1, state);
             break;
         case 's':
-            gameMap.movePlayer(0, 1);
+            gameMap.movePlayer(0, 1, state);
             break;
         case 'a':
-            gameMap.movePlayer(-1, 0);
+            gameMap.movePlayer(-1, 0, state);
             break;
         case 'd':
-            gameMap.movePlayer(1, 0);
+            gameMap.movePlayer(1, 0, state);
             break;
         case 'q':
             return 0;
-        default:
-            break;
         }
     }
 }
