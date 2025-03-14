@@ -47,6 +47,9 @@ void Game::processInput()
         case 'd':
             dx = 1;
             break;
+        case ' ': interact(); break;
+        case 'b': gameMap.toggleMap(); break;
+        case 'q': running = false; break;
         }
 
         if(dx != 0 || dy != 0)

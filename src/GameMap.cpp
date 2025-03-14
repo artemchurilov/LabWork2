@@ -18,17 +18,16 @@ GameMap::GameMap(int w, int h) : width(w), height(h)
     initMap();
 }
 
-void GameMap::movePlayer(int dx, int dy, GameState& state)
-{
+void GameMap::movePlayer(int dx, int dy, GameState& state) {
     int newX = playerX + dx;
     int newY = playerY + dy;
-
-    if(isPassable(newX, newY))
-    {
+    
+    interactAt(newX, newY, state);
+    
+    if(isPassable(newX, newY)) {
         playerX = newX;
         playerY = newY;
     }
-    interactAt(playerX, playerY, state);
 }
 
 void GameMap::render(const GameState& state) const
@@ -82,11 +81,17 @@ void GameMap::interactAt(int x, int y, GameState& state)
     }
 }
 
-void GameMap::toggleMap()
-{
+void GameMap::toggleMap() {
     alternateMap = !alternateMap;
     initMap();
-}
+    
+    playerX = 0;
+    playerY = 0;
+    
+    if(!isPassable(0, 0)) {
+        grid[0][0].setObject(nullptr);
+    }
+};
 
 bool GameMap::isPassable(int x, int y) const
 {
@@ -94,29 +99,23 @@ bool GameMap::isPassable(int x, int y) const
     return grid[y][x].isPassable();
 }
 
-void GameMap::initMap()
-{
-    for(auto& row : grid)
-    {
-        for(auto& cell : row)
-        {
+void GameMap::initMap() {
+    for(auto& row : grid) {
+        for(auto& cell : row) {
             cell = Cell();
         }
     }
 
-    if(alternateMap)
-    {
+    if(!alternateMap) {
+        grid[0][0] = Cell();
+        grid[3][1].setObject(std::make_shared<Campfire>());
         grid[4][2].setObject(std::make_shared<Shop>());
         grid[1][2].setObject(std::make_shared<Tree>());
-        grid[3][1].setObject(std::make_shared<Campfire>());
         grid[4][4].setObject(std::make_shared<Stone>());
         grid[2][3].setObject(std::make_shared<Mob>('M', 20, 10));
         grid[0][4].setObject(std::make_shared<Mob>('D', 1000, 50));
-    }
-    else
-    {
-        grid[1][1].setTerrain(TerrainType::WATER);
-        grid[2][2].setObject(std::make_shared<Tree>());
-        grid[3][3].setObject(std::make_shared<Mob>('M', 20, 10));
+    } else {
+        grid[0][0] = Cell();
+        grid[2][2].setObject(std::make_shared<Campfire>());
     }
 }
