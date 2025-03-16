@@ -9,15 +9,15 @@
 #include "EnemyCard.h"
 #include "CardPlayer.h"
 
-class Enemy {
+class Enemy
+{
     int health = 100;
     std::vector<std::unique_ptr<EnemyCard>> cards;
-    
+
 public:
     Enemy();
-    
-    void takeDamage(int amount) { health -= amount; }
-    bool isAlive() const { return health > 0; }
+    void takeDamage(int amount);
+    bool isAlive() const;
     void executeTurn(CardPlayer& target);
     void printStatus() const;
 };

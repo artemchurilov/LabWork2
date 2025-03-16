@@ -5,7 +5,6 @@
 #include "GameMap.h"
 #include "BossMob.h"
 #include <iostream>
-#include "StaticObj.h"
 #include <cstdlib>
 #include "Tree.h"
 #include "Mob.h"
@@ -20,13 +19,15 @@ GameMap::GameMap(int w, int h) : width(w), height(h)
     initMap();
 }
 
-void GameMap::movePlayer(int dx, int dy, GameState& state) {
+void GameMap::movePlayer(int dx, int dy, GameState& state)
+{
     int newX = playerX + dx;
     int newY = playerY + dy;
-    
+
     interactAt(newX, newY, state);
-    
-    if(isPassable(newX, newY)) {
+
+    if(isPassable(newX, newY))
+    {
         playerX = newX;
         playerY = newY;
     }
@@ -83,14 +84,16 @@ void GameMap::interactAt(int x, int y, GameState& state)
     }
 }
 
-void GameMap::toggleMap() {
+void GameMap::toggleMap()
+{
     alternateMap = !alternateMap;
     initMap();
-    
+
     playerX = 0;
     playerY = 0;
-    
-    if(!isPassable(0, 0)) {
+
+    if(!isPassable(0, 0))
+    {
         grid[0][0].setObject(nullptr);
     }
 };
@@ -101,14 +104,18 @@ bool GameMap::isPassable(int x, int y) const
     return grid[y][x].isPassable();
 }
 
-void GameMap::initMap() {
-    for(auto& row : grid) {
-        for(auto& cell : row) {
+void GameMap::initMap()
+{
+    for(auto& row : grid)
+    {
+        for(auto& cell : row)
+        {
             cell = Cell();
         }
     }
 
-    if(!alternateMap) {
+    if(!alternateMap)
+    {
         grid[0][0] = Cell();
         grid[3][1].setObject(std::make_shared<Campfire>());
         grid[4][2].setObject(std::make_shared<Shop>());
@@ -118,7 +125,9 @@ void GameMap::initMap() {
         grid[0][4].setObject(std::make_shared<Mob>('D', 1000, 50));
         grid[2][2].setObject(std::make_shared<CardShop>());
 
-    } else {
+    }
+    else
+    {
         grid[0][0] = Cell();
         grid[2][2].setObject(std::make_shared<Campfire>());
         grid[2][4].setObject(std::make_shared<BossMob>());

@@ -9,11 +9,12 @@
 #include "CardPlayer.h"
 #include "Card.h"
 
-class Defend : public Card {
-    public:
-        void play(CardPlayer& user, Enemy& target) override;
-        std::string getName() const override { return "Defend"; }
-        int getEnergyCost() const override { return 1; }
-    };
+class Defend : public Card
+{
+public:
+    void play(CardPlayer& user, Enemy& target) override;
+    std::string getName() const override;
+    int getEnergyCost() const override;
+};
 
 #endif

@@ -10,42 +10,82 @@
 #include "Strike.h"
 #include "Defend.h"
 
+bool CardPlayer::isAlive() const
+{
+    return health > 0;
+}
 
-void CardPlayer::drawCards(int count){
-    for(int i = 0; i < count && !deck.empty(); ++i) {
+std::vector<std::unique_ptr<Card>>& CardPlayer::getHand()
+{
+    return hand;
+}
+
+int CardPlayer::getEnergy() const
+{
+    return energy;
+}
+
+int CardPlayer::getHealth() const
+{
+    return health;
+}
+int CardPlayer::getBlock() const
+{
+    return block;
+}
+
+void CardPlayer::loseEnergy(int amount)
+{
+    energy -= amount;
+}
+
+void CardPlayer::addWeak(int turns)
+{
+    weak += turns;
+}
+
+void CardPlayer::drawCards(int count)
+{
+    for(int i = 0; i < count && !deck.empty(); ++i)
+    {
         hand.push_back(move(deck.back()));
         deck.pop_back();
     }
 }
-void CardPlayer::startTurn() {
+void CardPlayer::startTurn()
+{
     energy = 3;
     drawCards(5 - hand.size());
     weak = std::max(weak - 1, 0);
 }
-void CardPlayer::addBlock(int amount) {
+void CardPlayer::addBlock(int amount)
+{
     block += amount * (weak > 0 ? 0.75 : 1.0);
 }
 
-CardPlayer::CardPlayer() {
+CardPlayer::CardPlayer()
+{
     for(int i = 0; i < 10; ++i) deck.push_back(std::make_unique<Strike>());
     for(int i = 0; i < 5; ++i) deck.push_back(std::make_unique<Defend>());
-    
+
     std::random_device rd;
     std::mt19937 g(rd());
     std::shuffle(deck.begin(), deck.end(), g);
-    
+
     drawCards(5);
 }
 
-void CardPlayer::takeDamage(int amount) {
+void CardPlayer::takeDamage(int amount)
+{
     int actual = std::max(amount - block, 0);
     health -= actual;
     block = std::max(block - amount, 0);
 }
 
-void CardPlayer::printStatus() const {
-    std::cout << "\n[Player]\nHP: " << health 
-         << "\nBlock: " << block
-         << "\nEnergy: " << energy
-         << "\nWeak: " << weak << " turns\n";
+void CardPlayer::printStatus() const
+{
+    std::cout << "\n[Player]\nHP: " << health
+              << "\nBlock: " << block
+              << "\nEnergy: " << energy
+              << "\nWeak: " << weak << " turns\n";
 }

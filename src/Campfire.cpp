@@ -9,13 +9,17 @@ char Campfire::getSymbol() const
     return 'C';
 }
 
-void Campfire::interact(GameState& state) {
-    if(state.inventory.hp < 100 || state.inventory.energy < 50) {
+void Campfire::interact(GameState& state)
+{
+    if(state.inventory.hp < 100 || state.inventory.energy < 50)
+    {
         state.inventory.hp = 100;
         state.inventory.energy = 50;
         state.day++;
         state.last_message = "Restored health and energy! New day: " + std::to_string(state.day);
-    } else {
+    }
+    else
+    {
         state.last_message = "Already fully rested!";
     }
 };

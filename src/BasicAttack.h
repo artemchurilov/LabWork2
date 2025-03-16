@@ -8,12 +8,13 @@
 #include "EnemyCard.h"
 #include "CardPlayer.h"
 
-class BasicAttack : public EnemyCard {
-    public:
-        BasicAttack() : EnemyCard(1) {}
-        bool canUse(const CardPlayer& p, const Enemy& e) const override;
-        void execute(Enemy& user, CardPlayer& target) override { target.takeDamage(8); user.isAlive(); }
-        std::string getName() const override { return "Basic Attack"; }
-    };
+class BasicAttack : public EnemyCard
+{
+public:
+    BasicAttack();
+    bool canUse(const CardPlayer& p, const Enemy& e) const override;
+    void execute(Enemy& user, CardPlayer& target) override;
+    std::string getName() const override;
+};
 
 #endif

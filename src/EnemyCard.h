@@ -8,14 +8,15 @@
 #include <iostream>
 class Enemy;
 class CardPlayer;
-class EnemyCard {
+class EnemyCard
+{
     int priority;
 public:
-    EnemyCard(int p) : priority(p) {}
+    EnemyCard(int p);
     virtual ~EnemyCard() = default;
     virtual void execute(Enemy& user, CardPlayer& target) = 0;
     virtual bool canUse(const CardPlayer& p, const Enemy& e) const = 0;
-    int getPriority() const { return priority; }
+    int getPriority() const;
     virtual std::string getName() const = 0;
 };
 

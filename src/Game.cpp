@@ -47,9 +47,15 @@ void Game::processInput()
         case 'd':
             dx = 1;
             break;
-        case ' ': interact(); break;
-        case 'b': gameMap.toggleMap(); break;
-        case 'q': running = false; break;
+        case ' ':
+            interact();
+            break;
+        case 'b':
+            gameMap.toggleMap();
+            break;
+        case 'q':
+            running = false;
+            break;
         }
 
         if(dx != 0 || dy != 0)
@@ -71,7 +77,8 @@ void Game::update()
     if(state.inventory.hp <= 0) handleDeath();
 }
 
-void Game::handleDeath() {
+void Game::handleDeath()
+{
     state.inventory.hp = 100;
     state.inventory.energy = 50;
     state.day++;

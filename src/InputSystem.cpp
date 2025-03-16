@@ -10,7 +10,7 @@
 #include <sys/select.h>
 #include <cstdlib>
 #include <string>
-struct termios orig_termios; // Определение переменной
+struct termios orig_termios;
 
 void enableRawMode()
 {

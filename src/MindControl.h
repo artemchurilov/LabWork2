@@ -6,11 +6,14 @@
 #define MINDCONTROL_H
 
 #include "EnemyCard.h"
-class MindControl : public EnemyCard {
-    public:
-        MindControl() : EnemyCard(2) {}
-        bool canUse(const CardPlayer& p, const Enemy& e) const override { return (p.getBlock() > 0) & (e.isAlive());}
-        void execute(Enemy& user, CardPlayer& target) override { target.addWeak(2); user.takeDamage(-2); }
-        std::string getName() const override { return "Mind Control"; }
-    };
+#include "CardPlayer.h"
+
+class MindControl : public EnemyCard
+{
+public:
+    MindControl();
+    bool canUse(const CardPlayer& p, const Enemy& e) const override;
+    void execute(Enemy& user, CardPlayer& target) override;
+    std::string getName() const override;
+};
 #endif

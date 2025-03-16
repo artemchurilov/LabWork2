@@ -4,7 +4,7 @@
 #ifndef INPUT_SYSTEM_H
 #define INPUT_SYSTEM_H
 
-extern struct termios orig_termios; // Объявление переменной
+extern struct termios orig_termios;
 
 void enableRawMode();
 void disableRawMode();
