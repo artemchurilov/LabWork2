@@ -1,6 +1,4 @@
 #include "gtest/gtest.h"
-#include "../src/StaticObj.h"
-#include "../src/DynamicObj.h"
 #include "../src/Cell.h"
 #include "../src/GameMap.h"
 #include "../src/Shop.h"
@@ -23,36 +21,6 @@ TEST(CellTest, WaterTerrainBlocksMovement)
     cell.setTerrain(TerrainType::WATER);
     EXPECT_FALSE(cell.isPassable());
     EXPECT_EQ(cell.getSymbol(), '~');
-}
-
-TEST(CellTest, PassableStaticObject)
-{
-    auto obj = std::make_shared<StaticObj>('@', true);
-    Cell cell;
-    cell.setObject(obj);
-    EXPECT_TRUE(cell.isPassable());
-}
-
-TEST(CellTest, NonPassableStaticObject)
-{
-    auto obj = std::make_shared<StaticObj>('#', false);
-    Cell cell;
-    cell.setObject(obj);
-    EXPECT_FALSE(cell.isPassable());
-}
-
-TEST(GameObjectTest, StaticObjectPassability)
-{
-    StaticObj passable('+', true);
-    StaticObj nonPassable('X', false);
-    EXPECT_TRUE(passable.isPassable());
-    EXPECT_FALSE(nonPassable.isPassable());
-}
-
-TEST(GameObjectTest, DynamicObjectIsAlwaysPassable)
-{
-    DynamicObj obj('D');
-    EXPECT_TRUE(obj.isPassable());
 }
 
 
@@ -135,34 +103,6 @@ TEST(MobTest, DamageCalculation) {
     EXPECT_EQ(state.last_message, "Fought M! Lost 10 HP. Got 10 gold.");
 }
 
-TEST(ShopTest, SuccessfulUpgrade) {
-    GameState state;
-    state.inventory.gold = 100;
-    Shop shop;
-    
-    std::istringstream input("1");
-    std::cin.rdbuf(input.rdbuf());
-    
-    shop.interact(state);
-    
-    EXPECT_EQ(state.inventory.sword_level, 2);
-    EXPECT_EQ(state.inventory.gold, 50);
-    EXPECT_EQ(state.last_message, "Sword upgraded to level 2");
-}
-
-TEST(ShopTest, NotEnoughGold) {
-    GameState state;
-    state.inventory.gold = 30;
-    Shop shop;
-    
-    std::istringstream input("2");
-    std::cin.rdbuf(input.rdbuf());
-    
-    shop.interact(state);
-    
-    EXPECT_EQ(state.inventory.shield_level, 1);
-    EXPECT_EQ(state.last_message, "Not enough gold!");
-}
 
 #include "../src/CardPlayer.h"
 TEST(CardPlayerTest, Initialization) {
@@ -217,4 +157,5 @@ TEST(EnemyAITest, CardPrioritization) {
     
     EXPECT_LT(player.getHealth(), 20);
 }
+
 

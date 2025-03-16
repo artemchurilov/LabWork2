@@ -88,15 +88,13 @@ void GameMap::toggleMap()
 {
     alternateMap = !alternateMap;
     initMap();
-
     playerX = 0;
     playerY = 0;
-
     if(!isPassable(0, 0))
     {
         grid[0][0].setObject(nullptr);
     }
-};
+}
 
 bool GameMap::isPassable(int x, int y) const
 {

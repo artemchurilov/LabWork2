@@ -16,6 +16,7 @@ class Enemy
 
 public:
     Enemy();
+    int getHealth();
     void takeDamage(int amount);
     bool isAlive() const;
     void executeTurn(CardPlayer& target);

@@ -15,18 +15,29 @@
 #include <chrono>
 #include "GameMap.h"
 #include "InputSystem.h"
+#include "MainMenu.h"
+#include "CardManager.h"
 
 class Game
 {
     GameMap gameMap;
-    
-    using GameClock = std::chrono::steady_clock;
     GameState state;
     bool running = true;
+
+
+    std::chrono::steady_clock::time_point lastUpdate = std::chrono::steady_clock::now();
+    bool showRules = false;
 public:
     Game();
     ~Game();
+    void showMainMenu();
+    void showRulesScreen();
+    void replaceCard(int index);
     void run();
+    void showDeck();
+    void showCardDetails(const std::string& card);
+
+private:
     struct
     {
         bool w = false;
@@ -34,13 +45,17 @@ public:
         bool s = false;
         bool d = false;
     } keys;
-private:
+
     void processInput();
+
     void interact();
+
     void update();
+
     void handleDeath();
-    void respawnPlayer();
+
     void render();
+
 
 };
 

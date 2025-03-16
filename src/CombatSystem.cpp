@@ -6,7 +6,7 @@
 #include "CombatSystem.h"
 #include <algorithm>
 
-CombatSystem::CombatSystem(GameState& s):state(s){};
+CombatSystem::CombatSystem(GameState& s):state(s) {};
 
 void CombatSystem::clearInput()
 {
@@ -76,12 +76,14 @@ bool CombatSystem::startCombat()
     return player.isAlive();
 }
 
-void CombatSystem::applyCardEffects(CardPlayer& player, const std::string& cardName) {
+void CombatSystem::applyCardEffects(CardPlayer& player, const std::string& cardName)
+{
     auto it = find(state.deck_cards.begin(), state.deck_cards.end(), cardName);
     if(it == state.deck_cards.end()) return;
 
-    
-    if(cardName == "Fist Punch") {
+
+    if(cardName == "Fist Punch")
+    {
         std::cout<<"You used Punch";
         player.addBlock(105);
     }

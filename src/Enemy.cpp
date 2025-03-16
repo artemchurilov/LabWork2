@@ -2,6 +2,7 @@
 /* Artem Churilov st130184@student.spbu.ru
     LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
 */
+
 #include "Enemy.h"
 
 #include "BasicAttack.h"
@@ -16,12 +17,17 @@ Enemy::Enemy()
     cards.push_back(std::make_unique<MindControl>());
 }
 
-
-void Enemy::takeDamage(int amount) {
+int Enemy::getHealth()
+{
+    return health;
+}
+void Enemy::takeDamage(int amount)
+{
     health -= amount;
 }
 
-bool Enemy::isAlive()const     {
+bool Enemy::isAlive()const
+{
     return health > 0;
 };
 

@@ -3,6 +3,7 @@
 */
 
 #include "GameObject.h"
-bool GameObject::isPassable() const{
+bool GameObject::isPassable() const
+{
     return true;
 };

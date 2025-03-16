@@ -15,7 +15,7 @@ class CombatSystem
     Enemy enemy;
     int turnNumber = 0;
 
-    GameState& state; 
+    GameState& state;
 public:
     CombatSystem(GameState& s);
     void clearInput();
