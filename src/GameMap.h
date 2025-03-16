@@ -8,7 +8,6 @@
 #include <memory>
 #include <vector>
 #include "Cell.h"
-
 class GameMap
 {
 public:
@@ -27,8 +26,6 @@ public:
     bool isPassable(int x, int y) const;
 
 private:
-
-
 
     int width, height;
     int playerX = 0, playerY = 0;

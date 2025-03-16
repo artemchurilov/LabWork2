@@ -19,8 +19,8 @@
 class Game
 {
     GameMap gameMap;
-    using Clock = std::chrono::high_resolution_clock;
-    Clock::time_point lastUpdate = Clock::now();
+    
+    using GameClock = std::chrono::steady_clock;
     GameState state;
     bool running = true;
 public:

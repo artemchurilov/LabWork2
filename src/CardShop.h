@@ -9,32 +9,44 @@
 class CardShop : public GameObject
 {
 public:
-    char getSymbol() const override;
-    bool isPassable() const override;
-    void interact(GameState& state) override;
+struct CardPack
+{
+    std::string name;
+    int gold_cost;
+    int wood_cost;
+    int stone_cost;
+    std::vector<std::pair<std::string, int>> cards;
+};
+char getSymbol() const;
+bool isPassable() const;
 
-private:
-    struct CardPack
-    {
-        std::string name;
-        std::string card_name;
-        int gold_cost;
-        int wood_cost;
-        int stone_cost;
-        int damage;
-        int block;
-    };
+void interact(GameState& state);
 
-    const std::vector<CardPack> packs =
-    {
-        {"Arms Action", "Toy Hammer", 100, 10, 0, 10, 0},
-        {"Legs Action", "Kicking Boots", 100, 0, 10, 0, 15},
-        {"Spells", "Magic Plushie", 100, 5, 5, 8, 8}
-    };
+void printShopArt(const GameState& state) const;
 
-    void printShopArt(const GameState& state) const;
     int getShopChoice() const;
     void handleChoice(int choice, GameState& state, bool& inShop);
-};
+    int getShopChoice(int min, int max) const;
+    std::string getRandomCard(const CardPack& pack) const;
+    void printCardDescription(const std::string& card) const;
 
+    const std::vector<CardPack> packs = {
+        {"Arms Action", 100, 10, 0, {
+            {"Fist Punch", 24}, {"Fist Block", 24}, 
+            {"Arm Heal", 24}, {"Arm Combo", 24}, {"Ultra Duper Punch", 4}
+        }},
+        {"Legs Action", 100, 0, 10, {
+            {"Foot Kick", 24}, {"Leg Block", 24},
+            {"Leg Heal", 24}, {"Leg Combo", 24}, {"Ultra Duper Kick", 4}
+        }},
+        {"Spells", 100, 5, 5, {
+            {"ArmDiscard", 25}, {"AutoRepair", 25},
+            {"Unluck", 25}, {"Clink-clock", 25}
+        }}
+    };
+    
+private:
+
+
+};
 #endif

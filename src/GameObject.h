@@ -10,10 +10,7 @@ class GameObject
 public:
     virtual ~GameObject() = default;
     virtual char getSymbol() const = 0;
-    virtual bool isPassable() const
-    {
-        return true;
-    };
+    virtual bool isPassable() const;
     virtual void interact(GameState&) {};
 };
 

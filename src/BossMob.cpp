@@ -1,35 +1,40 @@
 #include "BossMob.h"
-#include "InputSystem.h"
+#include "Game.h"
 #include "CombatSystem.h"
 
-char BossMob::getSymbol() const
-{
-    return 'B';
-}
-bool BossMob::isPassable() const
-{
-    return false;
-}
-void BossMob::interact(GameState& state)
-{
-    disableRawMode();
-    std::system("clear");
-    std::cout << "=== BOSS BATTLE ===" << std::endl;
-
-    CombatSystem battle;
-    bool victory = battle.startCombat();
-
-    if(victory)
+char BossMob::getSymbol() const 
     {
-        state.inventory.gold += 1000;
-        state.last_message = "BOSS DEFEATED! Got 1000 gold!";
+        return 'B';
     }
-    else
+    bool BossMob::isPassable() const 
     {
-        state.inventory.hp = std::max(state.inventory.hp - 50, 0);
-        state.last_message = "You were defeated by the boss! Lost 50 HP!";
+        return false;
     }
 
-    enableRawMode();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-};
+    void BossMob::interact(GameState& state) 
+    {
+        if(state.inventory.sword_level < 3)
+        {
+            state.last_message = "You need sword level 3 to fight boss!";
+            return;
+        }
+
+        disableRawMode();
+
+        CombatSystem battle(state);
+        bool victory = battle.startCombat();
+
+        if(victory)
+        {
+            state.inventory.gold += 1000;
+            state.last_message = "BOSS DEFEATED! Got 1000 gold!";
+        }
+        else
+        {
+            state.inventory.hp = 0;
+            state.last_message = "You were defeated by the boss!";
+        }
+
+        enableRawMode();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    };

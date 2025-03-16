@@ -7,6 +7,7 @@
 #include "GameObject.h"
 #include <iostream>
 
+
 class BossMob : public GameObject
 {
 public:

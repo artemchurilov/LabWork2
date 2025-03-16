@@ -6,6 +6,7 @@
 #define COMBATSYSTEM_H
 #include "CardPlayer.h"
 #include "Enemy.h"
+#include "GameState.h"
 #include <limits>
 
 class CombatSystem
@@ -14,12 +15,16 @@ class CombatSystem
     Enemy enemy;
     int turnNumber = 0;
 
+    GameState& state; 
 public:
-
+    CombatSystem(GameState& s);
     void clearInput();
 
     void printHand();
     bool startCombat();
+
+    void applyCardEffects(CardPlayer& player, const std::string& cardName);
+
 };
 
 #endif
