@@ -16,6 +16,14 @@ bool Stone::isPassable() const
 
 void Stone::interact(GameState& state)
 {
-    state.inventory.energy -= 15;
-    state.inventory.stone++;
+    if(state.inventory.energy >= 15)
+    {
+        state.inventory.energy -= 15;
+        state.inventory.stone++;
+        state.last_message = "Mined stone! +1 Stone";
+    }
+    else
+    {
+        state.last_message = "Not enough energy!";
+    }
 }

@@ -16,26 +16,28 @@ void Shop::interact(GameState& state)
         printShopArt(state);
 
         int choice = getShopChoice();
-
         switch(choice)
         {
         case 1:
             upgradeSword(state);
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
             break;
+
         case 2:
             upgradeShield(state);
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
             break;
         case 3:
             inShop = false;
             break;
-        default:
-            showError("Invalid choice!");
         }
 
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin.clear();
     }
     state.last_message = "Left the shop";
-};
+}
 
 bool Shop::isPassable() const
 {

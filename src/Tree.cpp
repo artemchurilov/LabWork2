@@ -15,6 +15,14 @@ bool Tree::isPassable() const
 }
 void Tree::interact(GameState& state)
 {
+if(state.inventory.energy >= 10)
+{
     state.inventory.energy -= 10;
     state.inventory.wood++;
+    state.last_message = "Chopped tree! +1 Wood";
+}
+else
+{
+    state.last_message = "Not enough energy!";
+}
 }
