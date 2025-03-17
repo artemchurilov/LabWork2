@@ -11,4 +11,5 @@ st130184@student.spbu.ru
 
 ## Run
 
-<par> ./test </par>
+<par> ./prog </par>
+<par> ./test-prog </par>
