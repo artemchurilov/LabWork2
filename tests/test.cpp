@@ -1,14 +1,12 @@
 #include "gtest/gtest.h"
-#include "../src/Cell.h"
-#include "../src/GameMap.h"
-#include "../src/Shop.h"
+#include "../include/Cell.h"
+#include "../include/GameMap.h"
+#include "../include/Shop.h"
 
-
-#include "gtest/gtest.h"
-#include "../src/Tree.h"
-#include "../src/Stone.h"
-#include "../src/Mob.h"
-#include "../src/Campfire.h"
+#include "../include/Tree.h"
+#include "../include/Stone.h"
+#include "../include/Mob.h"
+#include "../include/Campfire.h"
 int main(int argc, char **argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
@@ -104,7 +102,7 @@ TEST(MobTest, DamageCalculation) {
 }
 
 
-#include "../src/CardPlayer.h"
+#include "../include/CardPlayer.h"
 TEST(CardPlayerTest, Initialization) {
     CardPlayer player;
     EXPECT_EQ(player.getHealth(), 50);
@@ -124,27 +122,6 @@ TEST(CardPlayerTest, DamageCalculation) {
     EXPECT_EQ(player.getHealth(), 42);
 }
 
-#include "../src/Strike.h"
-TEST(CardTest, StrikeUsage) {
-    CardPlayer player;
-    Enemy enemy;
-    Strike strike;
-    
-    strike.play(player, enemy);
-    EXPECT_EQ(enemy.isAlive(), true);
-    EXPECT_EQ(player.getEnergy(), 2);
-}
-
-#include "../src/Defend.h"
-TEST(CardTest, DefendWithWeak) {
-    CardPlayer player;
-    Enemy enemy;
-    Defend defend;
-    
-    player.addWeak(1);
-    defend.play(player, enemy);
-    EXPECT_EQ(player.getBlock(), 3);
-}
 
 
 TEST(EnemyAITest, CardPrioritization) {

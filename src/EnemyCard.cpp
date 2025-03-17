@@ -2,7 +2,7 @@
     LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
 */
 
-#include "EnemyCard.h"
+#include "../include/EnemyCard.h"
 
 EnemyCard::EnemyCard(int p) : priority(p) {}
 

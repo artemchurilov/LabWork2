@@ -3,10 +3,10 @@
     LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
 */
 
-#include "Enemy.h"
-#include "BasicAttack.h"
-#include "FireBlast.h"
-#include "MindControl.h"
+#include "../include/Enemy.h"
+#include "../include/BasicAttack.h"
+#include "../include/FireBlast.h"
+#include "../include/MindControl.h"
 #include <algorithm>
 
 Enemy::Enemy()

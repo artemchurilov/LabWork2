@@ -2,9 +2,9 @@
     LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
 */
 
-#include "CardShop.h"
-#include "Game.h"
-#include "CardManager.h"
+#include "../include/CardShop.h"
+#include "../include/Game.h"
+#include "../include/CardManager.h"
 
 char CardShop::getSymbol() const
 {

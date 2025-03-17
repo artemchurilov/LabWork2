@@ -2,9 +2,9 @@
     LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
 */
 
-#include "Game.h"
+#include "../include/Game.h"
 #include "../include/const.h"
-#include "DeckSelector.h"
+#include "../include/DeckSelector.h"
 
 Game::Game() : gameMap(MAP_WIDTH, MAP_HEIGHT)
 {

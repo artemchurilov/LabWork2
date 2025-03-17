@@ -49,8 +49,8 @@ public:
         },
         {
             "Spells", 100, 5, 5, {
-                {"ArmDiscard", 25}, {"AutoRepair", 25},
-                {"Strongest Spell", 25}, {"Clink-clock", 25}
+                {"AutoRepair", 20},
+                {"Strongest Spell", 40}, {"Clink-clock", 40}
             }
         }
     };

@@ -2,7 +2,7 @@
     LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
 */
 
-#include "GameObject.h"
+#include "../include/GameObject.h"
 bool GameObject::isPassable() const
 {
     return true;

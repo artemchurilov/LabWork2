@@ -2,9 +2,9 @@
     LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
 */
 
-#include "BossMob.h"
-#include "Game.h"
-#include "CombatSystem.h"
+#include "../include/BossMob.h"
+#include "../include/Game.h"
+#include "../include/CombatSystem.h"
 
 char BossMob::getSymbol() const
 {

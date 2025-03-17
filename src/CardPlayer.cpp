@@ -2,7 +2,7 @@
     LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
 */
 
-#include "CardPlayer.h"
+#include "../include/CardPlayer.h"
 #include <algorithm>
 #include <iostream>
 #include <cstdlib>
@@ -63,7 +63,8 @@ void CardPlayer::addBlock(int amount)
 CardPlayer::CardPlayer()
 {
 }
-void CardPlayer::heal(int amount) {
+void CardPlayer::heal(int amount)
+{
     health = std::min(health + amount, 50);
 }
 void CardPlayer::takeDamage(int amount)

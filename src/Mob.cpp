@@ -2,7 +2,7 @@
     LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
 */
 
-#include "Mob.h"
+#include "../include/Mob.h"
 
 Mob::Mob(char s, int dmg, int reward): symbol(s), base_damage(dmg), gold_reward(reward) {}
 char Mob::getSymbol() const

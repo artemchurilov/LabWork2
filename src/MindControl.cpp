@@ -3,7 +3,7 @@
     LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
 */
 
-#include "MindControl.h"
+#include "../include/MindControl.h"
 
 
 MindControl::MindControl() : EnemyCard(2) {}

@@ -19,11 +19,9 @@ class CombatSystem
 public:
     CombatSystem(GameState& s);
     void clearInput();
-
+    void printBattleUI() const;
     void printHand();
     bool startCombat();
-    void printBattleUI() const;
-    void applyCardEffects(CardPlayer& player, const std::string& cardName);
 
 };
 

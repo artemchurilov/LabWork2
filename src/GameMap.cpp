@@ -2,16 +2,16 @@
     LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
 */
 
-#include "GameMap.h"
-#include "BossMob.h"
+#include "../include/GameMap.h"
+#include "../include/BossMob.h"
 #include <iostream>
 #include <cstdlib>
-#include "Tree.h"
-#include "Mob.h"
-#include "Campfire.h"
-#include "Stone.h"
-#include "Shop.h"
-#include "CardShop.h"
+#include "../include/Tree.h"
+#include "../include/Mob.h"
+#include "../include/Campfire.h"
+#include "../include/Stone.h"
+#include "../include/Shop.h"
+#include "../include/CardShop.h"
 
 GameMap::GameMap(int w, int h) : width(w), height(h)
 {

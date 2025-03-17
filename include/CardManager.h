@@ -1,4 +1,6 @@
-
+/* Artem Churilov st130184@student.spbu.ru
+    LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
+*/
 
 #ifndef CARDMANAGER_H
 #define CARDMANAGER_H
@@ -18,7 +20,7 @@ public:
         if (cardName.find("Heal") != std::string::npos) return "\033[32m";
         if (cardName.find("Block") != std::string::npos||
                 cardName.find("Defend") != std::string::npos) return "\033[37m";
-    
+
         return "\033[0m";
     }
     static std::string getDescription(const std::string& cardName)

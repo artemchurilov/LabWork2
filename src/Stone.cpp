@@ -2,7 +2,7 @@
     LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
 */
 
-#include "Stone.h"
+#include "../include/Stone.h"
 
 char Stone::getSymbol() const
 {

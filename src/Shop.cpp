@@ -3,7 +3,7 @@
     LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
 */
 
-#include "Shop.h"
+#include "../include/Shop.h"
 #include <iostream>
 #include <limits>
 
