@@ -32,7 +32,6 @@ public:
     void handleChoice(int choice, GameState& state, bool& inShop);
     int getShopChoice(int min, int max) const;
     std::string getRandomCard(const CardPack& pack) const;
-    void printCardDescription(const std::string& card) const;
 
     const std::vector<CardPack> packs =
     {
@@ -51,7 +50,7 @@ public:
         {
             "Spells", 100, 5, 5, {
                 {"ArmDiscard", 25}, {"AutoRepair", 25},
-                {"Unluck", 25}, {"Clink-clock", 25}
+                {"Strongest Spell", 25}, {"Clink-clock", 25}
             }
         }
     };

@@ -103,7 +103,7 @@ void CardShop::handleChoice(int choice, GameState& state, bool& inShop)
             std::cout << "Deck is full! Choose card to replace:\n";
             for(size_t i = 0; i < state.current_deck.size(); ++i)
             {
-                std::cout << i+1 << ". " << state.current_deck[i] << "\n";
+                std::cout << i+1 << ". " <<CardManager::getColor(state.current_deck[i])<< state.current_deck[i]<<"\033[0m"<<" --- "<< CardManager::getDescription(state.current_deck[i])<< "\n";
             }
 
             int replaceIndex = getShopChoice(1, state.current_deck.size()) - 1;
@@ -161,20 +161,4 @@ std::string CardShop::getRandomCard(const CardPack& pack) const
     return pack.cards.back().first;
 }
 
-void CardShop::printCardDescription(const std::string& card) const
-{
-    if(card == "Fist Punch") std::cout << "Deal 12 damage";
-    else if(card == "Fist Block") std::cout << "Gain 8 block";
-    else if(card == "Arm Heal") std::cout << "Restore 10 HP";
-    else if(card == "Arm Combo") std::cout << "6 damage + 6 block";
-    else if(card == "Ultra Duper Punch") std::cout << "Deal 100 damage";
-    else if(card == "Foot Kick") std::cout << "Deal 12 damage";
-    else if(card == "Leg Block") std::cout << "Gain 8 block";
-    else if(card == "Leg Heal") std::cout << "Restore 10 HP";
-    else if(card == "Leg Combo") std::cout << "6 damage + 6 block";
-    else if(card == "Ultra Duper Kick") std::cout << "Deal 100 damage";
-    else if(card == "ArmDiscard") std::cout << "Take 3 damage, gain 2 energy";
-    else if(card == "AutoRepair") std::cout << "Heal 6 per card played";
-    else if(card == "Unluck") std::cout << "Instant death";
-    else if(card == "Clink-clock") std::cout << "Do nothing";
-}
+
