@@ -136,14 +136,10 @@ void Shop::showSuccess(const std::string& title, const std::string& message) con
 {
     system("clear");
     std::cout << title << "\n" << message;
-    std::string tmp;
-    std::getline(std::cin, tmp);
 }
 
 void Shop::showError(const std::string& message) const
 {
     system("clear");
-    std::cout << "ERROR: " << message << "\nPress TWICE ENTER to continue...";
-    std::string tmp;
-    std::getline(std::cin, tmp);
+    std::cout << "ERROR: " << message << "\nPress ENTER to continue...";
 }

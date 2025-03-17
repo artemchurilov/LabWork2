@@ -3,12 +3,9 @@
 */
 
 #include "CardPlayer.h"
-#include <random>
 #include <algorithm>
 #include <iostream>
 #include <cstdlib>
-#include "Strike.h"
-#include "Defend.h"
 
 bool CardPlayer::isAlive() const
 {
@@ -65,16 +62,10 @@ void CardPlayer::addBlock(int amount)
 
 CardPlayer::CardPlayer()
 {
-    for(int i = 0; i < 10; ++i) deck.push_back(std::make_unique<Strike>());
-    for(int i = 0; i < 5; ++i) deck.push_back(std::make_unique<Defend>());
-
-    std::random_device rd;
-    std::mt19937 g(rd());
-    std::shuffle(deck.begin(), deck.end(), g);
-
-    drawCards(5);
 }
-
+void CardPlayer::heal(int amount) {
+    health = std::min(health + amount, 50);
+}
 void CardPlayer::takeDamage(int amount)
 {
     int actual = std::max(amount - block, 0);

@@ -4,7 +4,6 @@
 */
 
 #include "Enemy.h"
-
 #include "BasicAttack.h"
 #include "FireBlast.h"
 #include "MindControl.h"

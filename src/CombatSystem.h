@@ -22,7 +22,7 @@ public:
 
     void printHand();
     bool startCombat();
-
+    void printBattleUI() const;
     void applyCardEffects(CardPlayer& player, const std::string& cardName);
 
 };

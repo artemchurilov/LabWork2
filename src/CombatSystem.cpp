@@ -5,9 +5,71 @@
 
 #include "CombatSystem.h"
 #include <algorithm>
+#include "AttackCard.h"
+#include "DefendCard.h"
+#include "ComboCard.h"
+#include "HealCard.h"
+#include "EnergyCard.h"
+#include <random>
+#include "Game.h"
 
-CombatSystem::CombatSystem(GameState& s):state(s) {};
+CombatSystem::CombatSystem(GameState& s):state(s) {
+for(const auto& cardName : state.current_deck)
+{
+    if(cardName == "Strike") {
+        player.deck.push_back(std::make_unique<AttackCard>("Strike",6,1));
+    }
+    else if(cardName == "Defend") {
+        player.deck.push_back(std::make_unique<DefendCard>("Defend",5,1));
+    }
+    else if(cardName == "Fist Punch") {
+        player.deck.push_back(std::make_unique<AttackCard>("Fist Punch",12,1));
+    }
+    else if(cardName == "Arm Block") {
+        player.deck.push_back(std::make_unique<DefendCard>("Defend",8,1));
+    }
+    else if(cardName == "Arm Heal") {
+        player.deck.push_back(std::make_unique<HealCard>("Arm Heal",9,1));
+    }
+    else if(cardName == "Leg Heal") {
+        player.deck.push_back(std::make_unique<HealCard>("Leg Heal",8,1));
+    }
+    else if(cardName == "Leg Block") {
+        player.deck.push_back(std::make_unique<DefendCard>("Defend",12,1));
+    }
+    else if(cardName == "Arm Combo") {
+        player.deck.push_back(std::make_unique<ComboCard>("Arm Combo",6,5,1));
+    }
+    else if(cardName == "Leg Combo") {
+        player.deck.push_back(std::make_unique<ComboCard>("Leg Combo",5,6,1));
+    }
+    else if(cardName == "Foot Punch") {
+        player.deck.push_back(std::make_unique<AttackCard>("Foot Punch",5,1));
+    }
+    else if(cardName == "Ultra Duper Kick") {
+        player.deck.push_back(std::make_unique<DefendCard>("Ultra Duper Kick",100,1));
+    }
+    else if(cardName == "Ultra Duper Punch") {
+        player.deck.push_back(std::make_unique<AttackCard>("Ultra Duper Punch",100,1));
+    }
+    else if(cardName == "ArmDiscard") {
+        player.deck.push_back(std::make_unique<EnergyCard>("ArmDiscard",3,2,0));
+    }
+    else if(cardName == "AutoRepair") {
+        player.deck.push_back(std::make_unique<HealCard>("AutoRepair",20,3));
+    }
+    else if(cardName == "StrongestSpell") {
+        player.deck.push_back(std::make_unique<HealCard>("StrongestSpell",-100,1));
+    }
+    else if(cardName == "Clink-clock") {
+        player.deck.push_back(std::make_unique<AttackCard>("Click-clock",0,1));
+    };
+};
 
+        std::random_device rd;
+        std::mt19937 g(rd());
+        std::shuffle(player.deck.begin(), player.deck.end(), g);
+}
 void CombatSystem::clearInput()
 {
     std::cin.clear();
@@ -37,6 +99,7 @@ bool CombatSystem::startCombat()
 
         while(player.getEnergy() > 0 && !player.getHand().empty())
         {
+            printBattleUI();
             printHand();
             std::cout << "Choose a card (1-" << player.getHand().size()
                       << ") or 0 to end turn: ";
@@ -68,9 +131,10 @@ bool CombatSystem::startCombat()
             player.getHand().erase(player.getHand().begin() + index);
         }
 
-        if(enemy.isAlive())
-        {
+        if(enemy.isAlive()) {
+            printBattleUI();
             enemy.executeTurn(player);
+            usleep(2000000);
         }
     }
     return player.isAlive();
