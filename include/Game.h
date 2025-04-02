@@ -17,7 +17,7 @@
 #include "InputSystem.h"
 #include "MainMenu.h"
 #include "CardManager.h"
-
+#include "GameState.h"
 class Game
 {
     GameMap gameMap;
@@ -36,7 +36,7 @@ public:
     void run();
     void showDeck();
     void showCardDetails(const std::string& card);
-
+    void selectDeck();
 private:
     struct
     {

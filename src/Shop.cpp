@@ -12,7 +12,7 @@ void Shop::interact(GameState& state)
     bool inShop = true;
     while(inShop)
     {
-        system("clear");
+        std::cout << "\033c";
         printShopArt(state);
 
         int choice = getShopChoice();
@@ -134,12 +134,12 @@ void Shop::upgradeShield(GameState& state)
 
 void Shop::showSuccess(const std::string& title, const std::string& message) const
 {
-    system("clear");
+    std::cout << "\033c";
     std::cout << title << "\n" << message;
 }
 
 void Shop::showError(const std::string& message) const
 {
-    system("clear");
+    std::cout << "\033c";
     std::cout << "ERROR: " << message << "\nPress ENTER to continue...";
 }

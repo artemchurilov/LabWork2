@@ -20,7 +20,7 @@ void CardShop::interact(GameState& state)
     bool inShop = true;
     while(inShop)
     {
-        system("clear");
+        std::cout << "\033c";
         printShopArt(state);
         int choice = getShopChoice();
         handleChoice(choice, state, inShop);
@@ -78,7 +78,7 @@ void CardShop::handleChoice(int choice, GameState& state, bool& inShop)
         state.inventory.wood -= pack.wood_cost;
         state.inventory.stone -= pack.stone_cost;
 
-        system("clear");
+        std::cout << "\033c";
         std::cout << "Opening pack...\n";
         usleep(500000);
         std::cout << "BOOM!\n";
@@ -87,7 +87,7 @@ void CardShop::handleChoice(int choice, GameState& state, bool& inShop)
         std::string card = getRandomCard(pack);
         state.deck_cards.push_back(card);
 
-        system("clear");
+        std::cout << "\033c";
         std::cout << CardManager::getColor(card)
                   << "You got: " << card << "!\033[0m\n";
         std::cout << "Effect: " << CardManager::getDescription(card) << "\n";
@@ -99,7 +99,7 @@ void CardShop::handleChoice(int choice, GameState& state, bool& inShop)
         bool cardAdded = false;
         if(state.current_deck.size() >= 15)
         {
-            system("clear");
+            std::cout << "\033c";
             std::cout << "Deck is full! Choose card to replace:\n";
             for(size_t i = 0; i < state.current_deck.size(); ++i)
             {

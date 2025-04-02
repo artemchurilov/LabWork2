@@ -35,7 +35,7 @@ void GameMap::movePlayer(int dx, int dy, GameState& state)
 
 void GameMap::render(const GameState& state) const
 {
-    system("clear");
+    std::cout << "\033c";
     std::cout << "Day: " << state.day << "\n\n";
 
     for (int y = 0; y < height; ++y)
@@ -50,16 +50,15 @@ void GameMap::render(const GameState& state) const
     std::cout << "\n" << state.last_message << "\n";
 }
 
-
 void GameMap::printInventoryLine(int line, const GameState& state) const
 {
     const std::vector<std::string> lines =
     {
-        "HP: " + std::to_string(state.inventory.hp),
-        "Energy: " + std::to_string(state.inventory.energy),
-        "Gold: " + std::to_string(state.inventory.gold),
-        "Wood: " + std::to_string(state.inventory.wood),
-        "Stone: " + std::to_string(state.inventory.stone)
+        "\033[91m HP\033[0m: " + std::to_string(state.inventory.hp),
+        "\033[91m Energy\033[0m: " + std::to_string(state.inventory.energy),
+        "\033[33m Gold\033[0m: " + std::to_string(state.inventory.gold),
+        "\033[32m Wood\033[0m: " + std::to_string(state.inventory.wood),
+        "\033[90m Stone\033[0m: " + std::to_string(state.inventory.stone) 
     };
     if (line < int(lines.size())) std::cout << " | " << lines[line];
 }

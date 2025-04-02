@@ -5,10 +5,18 @@
 #include "../include/Game.h"
 #include "../include/const.h"
 #include "../include/DeckSelector.h"
+#define RESET   "\033[0m"
+#define RED     "\033[31m"      
+#define GREEN   "\033[32m"     
+#define YELLOW  "\033[33m"     
+#define BLUE    "\033[34m"
 
 Game::Game() : gameMap(MAP_WIDTH, MAP_HEIGHT)
 {
     enableRawMode();
+}
+void Game::selectDeck()
+{
 
     DeckSelector selector;
     auto deckType = selector.show();
@@ -32,8 +40,9 @@ Game::Game() : gameMap(MAP_WIDTH, MAP_HEIGHT)
                               "Defend","Defend","Defend","Defend","Defend"
                              };
         break;
-    }
+    }    
 }
+
 Game::~Game()
 {
     disableRawMode();
@@ -48,6 +57,7 @@ void Game::showMainMenu()
         switch(result)
         {
         case MainMenu::START:
+            selectDeck();
             return;
         case MainMenu::RULES:
             showRulesScreen();
@@ -61,13 +71,28 @@ void Game::showMainMenu()
 
 void Game::showRulesScreen()
 {
-    system("clear");
-    std::cout << "=== GAME RULES ===\n";
-    std::cout << "1. Collect resources to buy cards\n";
-    std::cout << "2. Fight enemies to gain gold\n";
-    std::cout << "3. Defeat the final boss to win\n";
-    std::cout << "\n Press any key to return...";
-    std::cout << "\n";
+    std::cout << "\033c";
+        std::cout << YELLOW << "\n📜 " << RESET << "GAME RULES & CONTROLS" << YELLOW << " 📜\n" << RESET;
+        std::cout << "--------------------------------------------------\n";
+        
+        std::cout << YELLOW << "\n🎮 CONTROLS:\n" << RESET;
+        std::cout << "- " << GREEN << "W, A, S, D" << RESET << " - Movement:\n";
+        std::cout << "- " << GREEN << "B" << RESET << " - Toggle Map\n";
+        std::cout << "- " << GREEN << "C" << RESET << " - View Card Deck\n";
+        std::cout << "- " << GREEN << "Q" << RESET << " - Quit Game\n";
+
+        std::cout << YELLOW << "\n🌳 RESOURCES & OBJECTS:\n" << RESET;
+        std::cout << "- " << GREEN << "T (Tree)" << RESET << "   - Source of " << GREEN << "Wood\n" << RESET;
+        std::cout << "- " << GREEN << "S (Stone)" << RESET << "  - Source of " << GREEN << "Stone\n" << RESET;
+        std::cout << "- " << GREEN << "M (Mob)" << RESET << "    - Drops " << GREEN << "Gold\n" << RESET;
+        std::cout << "- " << GREEN << "C (Campfire)" << RESET << " - Restores " << GREEN << "HP/Energy\n" << RESET;
+        std::cout << "- " << GREEN << "$ (Shop)" << RESET << " - Source of new " << GREEN << "Upgrades\n" << RESET;
+        std::cout << "- " << GREEN << "K (CardShop)" << RESET << " - Source of new " << GREEN << "Cards\n" << RESET;
+        std::cout << "- " << GREEN << "B (Boss)" << RESET << " - The Final " << GREEN << "Challenge\n" << RESET;
+        
+
+        std::cout << "\n" << RED << "TIP: " << RESET << "Type " << GREEN << "Q" << RESET 
+                  << " anytime to quit the game!\n\n";
     getKey();
 }
 
@@ -87,7 +112,7 @@ void Game::run()
 
 void Game::replaceCard(int index)
 {
-    system("clear");
+    std::cout << "\033c";
     std::cout << "Select new card:\n";
     for(size_t i = 0; i < state.deck_cards.size(); ++i)
     {
@@ -106,7 +131,7 @@ void Game::replaceCard(int index)
 void Game::showDeck()
 {
     disableRawMode();
-    system("clear");
+    std::cout << "\033c";
 
     std::cout << "=== YOUR DECK ===\n";
     for(size_t i = 0; i < state.current_deck.size(); ++i)
@@ -116,7 +141,7 @@ void Game::showDeck()
                   << "\n";
     }
 
-    std::cout << "\nEnter card number to see details or C to return: ";
+    std::cout << "\033[0m"<<"\nEnter card number to see details or C to return: ";
     std::string input;
     std::getline(std::cin, input);
 
@@ -141,7 +166,7 @@ void Game::showDeck()
 
 void Game::showCardDetails(const std::string& card)
 {
-    system("clear");
+    std::cout << "\033c";
     std::string color = CardManager::getColor(card);
     std::cout << color << "=== " << card << " ===\033[0m\n";
     std::cout << CardManager::getDescription(card) << "\n\n";
@@ -172,9 +197,6 @@ void Game::processInput()
             break;
         case 'd':
             dx = 1;
-            break;
-        case ' ':
-            interact();
             break;
         case 'b':
             gameMap.toggleMap();
