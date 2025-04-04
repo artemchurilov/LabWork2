@@ -187,21 +187,32 @@ void Game::processInput()
         switch(c)
         {
         case 'w':
+        case 'W':
             dy = -1;
             break;
+
         case 's':
+        case 'S':
             dy = 1;
             break;
+
         case 'a':
+        case 'A':
             dx = -1;
             break;
+
         case 'd':
+        case 'D':
             dx = 1;
             break;
+
         case 'b':
+        case 'B':
             gameMap.toggleMap();
             break;
+
         case 'q':
+        case 'Q':
             running = false;
             break;
         case 'c':
