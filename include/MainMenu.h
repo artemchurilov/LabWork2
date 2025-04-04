@@ -32,7 +32,15 @@ public:
 
         return static_cast<MainMenu::MenuResult>(selection);
     };
+/**
+ * @brief Renders the game rules and controls screen.
+ * @details Uses ANSI codes for colored text.
+ * Waits for any key press to return to the menu.
+ */
+    void showRulesScreen();
     void printTitle();
+
+    bool showMainMenu(GameState& state, bool& running);
     void printOptions(int selected);
 };
 

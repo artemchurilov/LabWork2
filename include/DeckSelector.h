@@ -4,7 +4,7 @@
 
 #ifndef DECKSELECTOR_H
 #define DECKSELECTOR_H
-
+#include "../include/GameState.h"
 /**
  * @class DeckSelector
  * @brief Handles deck selection UI for the player.
@@ -29,6 +29,10 @@ public:
      */
     DeckType show();
 
+    /**
+     * @brief Handles deck selection at the start of the game.
+     */
+    void selectDeck(GameState& state);
 private:
 
     /**

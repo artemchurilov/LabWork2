@@ -59,3 +59,41 @@ void DeckSelector::printTitle()
 {
     std::cout << "ToyRick" << "\n\n";
 }
+
+/**
+ * @brief Initializes the starting deck based on the player's choice.
+ * @details Available decks:
+ * - RISK_RICK: 15 cards (10 attacks, 5 defends)
+ * - SHIELDY_RICK: 15 cards (5 attacks, 10 defends)
+ * - RICK : 10 cards (5 attacks, 5 defends)
+ */
+
+void DeckSelector::selectDeck(GameState& state)
+{
+
+    DeckSelector selector;
+    auto deckType = selector.show();
+
+    switch(deckType)
+    {
+    case DeckSelector::RICK:
+        state.current_deck = {"Strike","Strike","Strike","Strike","Strike",
+                              "Defend","Defend","Defend","Defend","Defend"
+                             };
+
+        break;
+    case DeckSelector::RISK_RICK:
+        state.current_deck = {"Strike","Strike","Strike","Strike","Strike",
+                              "Strike","Strike","Strike","Strike","Strike",
+                              "Defend","Defend","Defend","Defend","Defend"
+                             };
+        break;
+
+    case DeckSelector::SHIELDY_RICK:
+        state.current_deck = {"Strike","Strike","Strike","Strike","Strike",
+                              "Defend","Defend","Defend","Defend","Defend",
+                              "Defend","Defend","Defend","Defend","Defend"
+                             };
+        break;
+    }
+}

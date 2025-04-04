@@ -74,9 +74,7 @@ public:
      */
     void showCardDetails(const std::string& card);
 
-    /**
-     * @brief Handles deck selection at the start of the game.
-     */
+
     void selectDeck();
 
 private:
