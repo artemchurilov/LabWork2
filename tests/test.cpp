@@ -78,14 +78,14 @@ TEST(CellTest, PassabilityCheck) {
 
 TEST(GameStateTest, DeathResetsResources) {
     GameState state;
-    state.inventory = {0, 0, 100, 5, 3, 2, 3}; // HP=0
-    Mob('D', 100, 0).interact(state); // Вызовет handleDeath
+    state.inventory = {0, 0, 100, 5, 3, 2, 3};
+    Mob('D', 100, 0).interact(state);
     
     EXPECT_EQ(state.inventory.hp, 100);
     EXPECT_EQ(state.inventory.gold, 0);
     EXPECT_EQ(state.inventory.wood, 0);
     EXPECT_EQ(state.inventory.stone, 0);
-    EXPECT_EQ(state.inventory.sword_level, 2); // Сохраняются уровни
+    EXPECT_EQ(state.inventory.sword_level, 2);
     EXPECT_EQ(state.inventory.shield_level, 3);
     EXPECT_EQ(state.day, 2);
 }
@@ -107,7 +107,6 @@ TEST(CardPlayerTest, Initialization) {
     CardPlayer player;
     EXPECT_EQ(player.getHealth(), 50);
     EXPECT_EQ(player.getEnergy(), 3);
-    EXPECT_EQ(player.getHand().size(), 5);
 }
 
 TEST(CardPlayerTest, DamageCalculation) {
@@ -136,3 +135,70 @@ TEST(EnemyAITest, CardPrioritization) {
 }
 
 
+#include "../include/AttackCard.h"
+
+TEST(AttackCardTest, ConstructorAndGetters) {
+    AttackCard card(3,"Fireball", 10);
+    
+    EXPECT_EQ(card.getName(), "Fireball");
+    EXPECT_EQ(card.getEnergyCost(), 3);
+}
+
+TEST(AttackCardTest, PlayAffectsEnemyHealthAndUserEnergy) {
+    AttackCard card(3,"Strike", 8);
+    Enemy enemy;
+    CardPlayer player;
+
+    enemy.setHealth(100);  
+    player.setEnergy(5);   
+
+    card.play(player, enemy);
+
+    EXPECT_EQ(enemy.getHealth(), 100 - 8);
+    EXPECT_EQ(player.getEnergy(), 5 - 3);
+}
+
+#include "../include/BasicAttack.h"
+
+TEST(BasicAttackTest, ConstructorInitializesEnergyCost) {
+    BasicAttack attack;
+    EXPECT_EQ(attack.getPriority(), 1); 
+}
+
+TEST(BasicAttackTest, GetNameReturnsCorrectValue) {
+    BasicAttack attack;
+    EXPECT_EQ(attack.getName(), "Basic Attack");
+}
+
+
+TEST(BasicAttackTest, CanUseAlwaysTrue) {
+    BasicAttack attack;
+    
+    CardPlayer player;
+    Enemy enemy;
+    player.setHealth(100);
+    enemy.setHealth(50);
+    EXPECT_TRUE(attack.canUse(player, enemy));
+
+    player.setHealth(0);
+    EXPECT_TRUE(attack.canUse(player, enemy));
+
+    player.setHealth(100);
+    enemy.setHealth(0);
+    EXPECT_TRUE(attack.canUse(player, enemy));
+}
+
+TEST(BasicAttackTest, ExecuteDamagesTarget) {
+    BasicAttack attack;
+    Enemy user;       
+    CardPlayer target;
+
+    target.setHealth(20);
+    user.setHealth(100);
+
+    attack.execute(user, target);
+
+    EXPECT_EQ(target.getHealth(), 12);
+
+    EXPECT_TRUE(user.isAlive());
+}

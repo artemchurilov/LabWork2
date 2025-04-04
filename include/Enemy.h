@@ -20,6 +20,7 @@ public:
     void takeDamage(int amount);
     bool isAlive() const;
     void executeTurn(CardPlayer& target);
+    void setHealth(int health);
     void printStatus() const;
 };
 

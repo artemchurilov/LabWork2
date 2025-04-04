@@ -11,13 +11,12 @@ class AttackCard : public Card
 
     std::string name;
     int damage;
-    int energyCost;
 
 public:
-    AttackCard(std::string cardName, int damageValue, int cost);
+
+    AttackCard(int cost,std::string cardName, int damageValue);
     void play(CardPlayer& user, Enemy& target) override;
     std::string getName() const override;
-    int getEnergyCost() const override;
 };
 
 #endif

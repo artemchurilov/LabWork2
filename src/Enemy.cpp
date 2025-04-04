@@ -16,6 +16,11 @@ Enemy::Enemy()
     cards.push_back(std::make_unique<MindControl>());
 }
 
+void Enemy::setHealth(int health)
+{
+    health=health;
+}
+
 int Enemy::getHealth()
 {
     return health;

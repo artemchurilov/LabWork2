@@ -18,63 +18,63 @@ CombatSystem::CombatSystem(GameState& s):state(s)
     {
         if(cardName == "Strike")
         {
-            player.deck.push_back(std::make_unique<AttackCard>("Strike",6,1));
+            player.deck.push_back(std::make_unique<AttackCard>(1,"Strike",6));
         }
         else if(cardName == "Defend")
         {
-            player.deck.push_back(std::make_unique<DefendCard>("Defend",5,1));
+            player.deck.push_back(std::make_unique<DefendCard>(1,"Defend",5));
         }
         else if(cardName == "Fist Punch")
         {
-            player.deck.push_back(std::make_unique<AttackCard>("Fist Punch",12,1));
+            player.deck.push_back(std::make_unique<AttackCard>(1,"Fist Punch",12));
         }
         else if(cardName == "Arm Block")
         {
-            player.deck.push_back(std::make_unique<DefendCard>("Defend",8,1));
+            player.deck.push_back(std::make_unique<DefendCard>(1,"Defend",8));
         }
         else if(cardName == "Arm Heal")
         {
-            player.deck.push_back(std::make_unique<HealCard>("Arm Heal",9,1));
+            player.deck.push_back(std::make_unique<HealCard>(1,"Arm Heal",9));
         }
         else if(cardName == "Leg Heal")
         {
-            player.deck.push_back(std::make_unique<HealCard>("Leg Heal",8,1));
+            player.deck.push_back(std::make_unique<HealCard>(1,"Leg Heal",8));
         }
         else if(cardName == "Leg Block")
         {
-            player.deck.push_back(std::make_unique<DefendCard>("Defend",12,1));
+            player.deck.push_back(std::make_unique<DefendCard>(1,"Defend",12));
         }
         else if(cardName == "Arm Combo")
         {
-            player.deck.push_back(std::make_unique<ComboCard>("Arm Combo",6,5,1));
+            player.deck.push_back(std::make_unique<ComboCard>(1,"Arm Combo",6,5));
         }
         else if(cardName == "Leg Combo")
         {
-            player.deck.push_back(std::make_unique<ComboCard>("Leg Combo",5,6,1));
+            player.deck.push_back(std::make_unique<ComboCard>(1,"Leg Combo",5,6));
         }
         else if(cardName == "Foot Punch")
         {
-            player.deck.push_back(std::make_unique<AttackCard>("Foot Punch",5,1));
+            player.deck.push_back(std::make_unique<AttackCard>(1,"Foot Punch",5));
         }
         else if(cardName == "Ultra Duper Kick")
         {
-            player.deck.push_back(std::make_unique<DefendCard>("Ultra Duper Kick",100,1));
+            player.deck.push_back(std::make_unique<DefendCard>(1,"Ultra Duper Kick",100));
         }
         else if(cardName == "Ultra Duper Punch")
         {
-            player.deck.push_back(std::make_unique<AttackCard>("Ultra Duper Punch",100,1));
+            player.deck.push_back(std::make_unique<AttackCard>(1,"Ultra Duper Punch",100));
         }
         else if(cardName == "AutoRepair")
         {
-            player.deck.push_back(std::make_unique<HealCard>("AutoRepair",20,3));
+            player.deck.push_back(std::make_unique<HealCard>(3,"AutoRepair",20));
         }
         else if(cardName == "StrongestSpell")
         {
-            player.deck.push_back(std::make_unique<HealCard>("StrongestSpell",-100,1));
+            player.deck.push_back(std::make_unique<HealCard>(1,"StrongestSpell",-100));
         }
         else if(cardName == "Clink-clock")
         {
-            player.deck.push_back(std::make_unique<AttackCard>("Click-clock",0,1));
+            player.deck.push_back(std::make_unique<AttackCard>(1,"Click-clock",0));
         };
     };
 

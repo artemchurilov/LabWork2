@@ -27,12 +27,15 @@ public:
     void addBlock(int amount);
     void takeDamage(int amount);
     void addWeak(int turns);
+    void setEnergy(int amount);
+    void setHealth(int amount);
     bool isAlive() const;
     void printStatus() const;
     std::vector<std::unique_ptr<Card>>& getHand();
     int getEnergy() const;
     int getHealth() const;
     int getBlock() const;
+
 };
 
 

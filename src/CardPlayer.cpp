@@ -30,7 +30,14 @@ int CardPlayer::getBlock() const
 {
     return block;
 }
-
+void CardPlayer::setEnergy(int amount)
+{
+    energy = amount;
+}
+void CardPlayer::setHealth(int amount)
+{
+    health = amount;
+}
 void CardPlayer::loseEnergy(int amount)
 {
     energy -= amount;

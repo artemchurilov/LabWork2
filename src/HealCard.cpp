@@ -4,8 +4,8 @@
 
 #include "../include/HealCard.h"
 
-HealCard::HealCard(std::string cardName, int healAmount, int cost)
-    : name(cardName), healValue(healAmount), energyCost(cost) {}
+HealCard::HealCard(int cost, std::string cardName, int healAmount)
+    : Card(cost), name(cardName), healValue(healAmount) {}
 
 void HealCard::play(CardPlayer& user, Enemy& target)
 {
@@ -20,9 +20,4 @@ void HealCard::play(CardPlayer& user, Enemy& target)
 std::string HealCard::getName() const
 {
     return name;
-}
-
-int HealCard::getEnergyCost() const
-{
-    return energyCost;
 }

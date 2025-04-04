@@ -11,11 +11,15 @@
 
 class Card
 {
+protected:
+    int energyCost;
 public:
+    Card(int energy);
     virtual ~Card() = default;
     virtual void play(CardPlayer& user, Enemy& target) = 0;
     virtual std::string getName() const = 0;
-    virtual int getEnergyCost() const = 0;
+    int getEnergyCost() const;
+    void setEnergyCost(int amount);
 };
 
 #endif

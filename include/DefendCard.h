@@ -12,13 +12,11 @@ class DefendCard : public Card
 
     std::string name;
     int block;
-    int energyCost;
 
 public:
-    DefendCard(std::string cardName, int blockValue, int cost);
+    DefendCard(int cost, std::string cardName, int blockValue);
     void play(CardPlayer& user, Enemy& target) override;
     std::string getName() const override;
-    int getEnergyCost() const override;
 };
 
 #endif

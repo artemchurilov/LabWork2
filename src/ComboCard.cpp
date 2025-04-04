@@ -4,8 +4,8 @@
 
 #include "../include/ComboCard.h"
 
-ComboCard::ComboCard(std::string cardName, int damageValue, int blockValue, int cost)
-    : name(cardName), damage(damageValue), block(blockValue), energyCost(cost) {}
+ComboCard::ComboCard(int cost, std::string cardName, int damageValue, int blockValue)
+    : Card(cost), name(cardName), damage(damageValue), block(blockValue) {}
 
 void ComboCard::play(CardPlayer& user, Enemy& target)
 {
@@ -17,9 +17,4 @@ void ComboCard::play(CardPlayer& user, Enemy& target)
 std::string ComboCard::getName() const
 {
     return name;
-}
-
-int ComboCard::getEnergyCost() const
-{
-    return energyCost;
 }
