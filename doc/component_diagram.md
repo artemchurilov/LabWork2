@@ -4,7 +4,11 @@
 This diagram illustrates the high-level architecture of the game, focusing on the interaction between major components.  
 The system is designed to be modular, ensuring separation of concerns and ease of future expansion.  
 
+<<<<<<< HEAD
 ![Component Diagram](./images/component_diagram.png)
+=======
+![Component Diagram](./component_diagram.png)
+>>>>>>> 3dad8e4 (update component_diagram)
 1. Core Components
 
     GameCore
@@ -104,4 +108,8 @@ The system is designed to be modular, ensuring separation of concerns and ease o
 
     Loose Coupling: Interfaces (Access to Map, BattleControl) decouple systems.
 
+<<<<<<< HEAD
     Central Coordination: GameCore orchestrates interactions between subsystems.
+=======
+    Central Coordination: GameCore orchestrates interactions between subsystems.
+>>>>>>> 3dad8e4 (update component_diagram)
