@@ -5,8 +5,9 @@
 #include "../include/AttackCard.h"
 
 AttackCard::AttackCard(int cost, std::string cardName, int damageValue)
-    : Card(cost),name(cardName), damage(damageValue){
-    }
+    : Card(cost),name(cardName), damage(damageValue)
+{
+}
 
 void AttackCard::play(CardPlayer& user, Enemy& target)
 {

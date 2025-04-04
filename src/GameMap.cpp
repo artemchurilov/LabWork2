@@ -13,6 +13,12 @@
 #include "../include/Shop.h"
 #include "../include/CardShop.h"
 
+/**
+ * @brief Initializes or resets the map layout.
+ * @details Populates cells with objects:
+ * - Default map: Campfire, Shop, Tree, Mobs, etc.
+ * - Alternate map: BossMob and Campfire at specific positions.
+ */
 GameMap::GameMap(int w, int h) : width(w), height(h)
 {
     grid.resize(h, std::vector<Cell>(w));
@@ -49,7 +55,10 @@ void GameMap::render(const GameState& state) const
     }
     std::cout << "\n" << state.last_message << "\n";
 }
-
+/**
+ * @brief Renders inventory stats alongside the map.
+ * @param line Line number to print (0-4 for HP, Energy, Gold, Wood, Stone).
+ */
 void GameMap::printInventoryLine(int line, const GameState& state) const
 {
     const std::vector<std::string> lines =
@@ -58,7 +67,7 @@ void GameMap::printInventoryLine(int line, const GameState& state) const
         "\033[91m Energy\033[0m: " + std::to_string(state.inventory.energy),
         "\033[33m Gold\033[0m: " + std::to_string(state.inventory.gold),
         "\033[32m Wood\033[0m: " + std::to_string(state.inventory.wood),
-        "\033[90m Stone\033[0m: " + std::to_string(state.inventory.stone) 
+        "\033[90m Stone\033[0m: " + std::to_string(state.inventory.stone)
     };
     if (line < int(lines.size())) std::cout << " | " << lines[line];
 }
@@ -82,7 +91,10 @@ void GameMap::interactAt(int x, int y, GameState& state)
         grid[y][x].interact(state);
     }
 }
-
+/**
+ * @brief Switches between default and alternate map layouts.
+ * @note Resets player position to (0,0) and ensures it's passable.
+ */
 void GameMap::toggleMap()
 {
     alternateMap = !alternateMap;

@@ -14,4 +14,4 @@ void Card::setEnergyCost(int amount)
     energyCost = amount;
 }
 
-Card::Card(int energy):energyCost(energy){};
+Card::Card(int energy):energyCost(energy) {};

@@ -1,7 +1,6 @@
 /* Artem Churilov st130184@student.spbu.ru
     LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
 */
-
 #include "../include/CardPlayer.h"
 #include <algorithm>
 #include <iostream>
@@ -26,18 +25,22 @@ int CardPlayer::getHealth() const
 {
     return health;
 }
+
 int CardPlayer::getBlock() const
 {
     return block;
 }
+
 void CardPlayer::setEnergy(int amount)
 {
     energy = amount;
 }
+
 void CardPlayer::setHealth(int amount)
 {
     health = amount;
 }
+
 void CardPlayer::loseEnergy(int amount)
 {
     energy -= amount;
@@ -50,35 +53,38 @@ void CardPlayer::addWeak(int turns)
 
 void CardPlayer::drawCards(int count)
 {
-    for(int i = 0; i < count && !deck.empty(); ++i)
+    for (int i = 0; i < count && !deck.empty(); ++i)
     {
-        hand.push_back(move(deck.back()));
+        hand.push_back(std::move(deck.back()));
         deck.pop_back();
     }
 }
+
 void CardPlayer::startTurn()
 {
-    energy = 3;
-    drawCards(5 - hand.size());
-    weak = std::max(weak - 1, 0);
-}
-void CardPlayer::addBlock(int amount)
-{
-    block += amount * (weak > 0 ? 0.75 : 1.0);
+    energy = 3; // Reset energy at the start of the turn
+    drawCards(5 - static_cast<int>(hand.size())); // Draw up to 5 cards
+    weak = std::max(weak - 1, 0); // Decrease "Weak" duration
 }
 
-CardPlayer::CardPlayer()
+void CardPlayer::addBlock(int amount)
 {
+    // "Weak" reduces block by 25%
+    block += static_cast<int>(amount * (weak > 0 ? 0.75 : 1.0));
 }
+
+CardPlayer::CardPlayer() {}
+
 void CardPlayer::heal(int amount)
 {
-    health = std::min(health + amount, 50);
+    health = std::min(health + amount, 50); // Max health is 50
 }
+
 void CardPlayer::takeDamage(int amount)
 {
-    int actual = std::max(amount - block, 0);
+    int actual = std::max(amount - block, 0); // Block absorbs damage
     health -= actual;
-    block = std::max(block - amount, 0);
+    block = std::max(block - amount, 0); // Reduce block after damage
 }
 
 void CardPlayer::printStatus() const

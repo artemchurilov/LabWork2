@@ -5,13 +5,41 @@
 #ifndef DECKSELECTOR_H
 #define DECKSELECTOR_H
 
+/**
+ * @class DeckSelector
+ * @brief Handles deck selection UI for the player.
+ * @details Uses terminal-based navigation with WASD/arrow key support.
+ */
 class DeckSelector
 {
 public:
-    enum DeckType { RISK_RICK, RICK_RICK, SHIELDY_RICK };
+    /**
+    * @enum DeckType
+    * @brief Types of preconfigured decks available for selection.
+    */
+    enum DeckType
+    {
+        RICK,        ///< Balanced deck: 5 Strike, 5 Defend.
+        RISK_RICK,   ///< Aggressive deck: 10 Strike, 5 Defend.
+        SHIELDY_RICK ///< Defensive deck: 5 Strike, 10 Defend.
+    };
+    /**
+     * @brief Displays the deck selection menu and returns the chosen deck.
+     * @return Selected DeckType.
+     */
     DeckType show();
+
 private:
+
+    /**
+     * @brief Prints the menu title ("ToyRick").
+     */
     void printTitle();
+
+    /**
+     * @brief Prints deck options with highlighting for the selected item.
+     * @param selected Index of the currently selected option (0-2).
+     */
     void printOptions(int selected);
 };
 

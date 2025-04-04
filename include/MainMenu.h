@@ -15,7 +15,7 @@ public:
 
     MenuResult show()
     {
-        enableRawMode();
+        InputSystem::enableRawMode();
         int selection = 0;
         while(true)
         {
@@ -23,12 +23,12 @@ public:
             printTitle();
             printOptions(selection);
 
-            char c = getKey();
+            char c = InputSystem::getKey();
             if(c == 'w' && selection > 0) selection--;
             if(c == 's' && selection < 2) selection++;
             if(c == '\n') break;
         }
-        disableRawMode();
+        InputSystem::disableRawMode();
 
         return static_cast<MainMenu::MenuResult>(selection);
     };

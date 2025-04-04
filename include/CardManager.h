@@ -4,48 +4,36 @@
 
 #ifndef CARDMANAGER_H
 #define CARDMANAGER_H
-#include "Card.h"
-#include <iostream>
-#include <map>
 
+#include "Card.h"
+#include <string>
+
+/**
+ * @class CardManager
+ * @brief Provides metadata for cards (colors and descriptions).
+ * @details Uses static methods to retrieve card colors and descriptions by name.
+ */
 class CardManager
 {
 public:
-    static std::string getColor(const std::string& cardName)
-    {
-        if (cardName.find("Ultra") != std::string::npos) return "\033[33m";
-        if (cardName.find("Punch") != std::string::npos ||
-                cardName.find("Kick") != std::string::npos ||
-                cardName.find("Strike") != std::string::npos) return "\033[31m";
-        if (cardName.find("Heal") != std::string::npos) return "\033[32m";
-        if (cardName.find("Block") != std::string::npos||
-                cardName.find("Defend") != std::string::npos) return "\033[37m";
+    /**
+     * @brief Returns the ANSI color code for a card based on its name.
+     * @param cardName Name of the card (e.g., "Ultra Duper Punch").
+     * @return ANSI escape code for the color:
+     * - Yellow (`\033[33m`) for cards containing "Ultra".
+     * - Red (`\033[31m`) for attack cards ("Punch", "Kick", "Strike").
+     * - Green (`\033[32m`) for healing cards ("Heal").
+     * - White (`\033[37m`) for block cards ("Block", "Defend").
+     * - Reset color (`\033[0m`) for unknown types.
+     */
+    static std::string getColor(const std::string& cardName);
 
-        return "\033[0m";
-    }
-    static std::string getDescription(const std::string& cardName)
-    {
-        static std::map<std::string, std::string> descriptions =
-        {
-            {"Strike", "Deal 6 damage (Cost: 1)"},
-            {"Defend", "Gain 5 block (Cost: 1)"},
-            {"Fist Punch", "Deal 12 damage (Cost: 1)"},
-            {"Fist Block", "Gain 8 block (Cost: 1)"},
-            {"Arm Heal", "Restore 9 HP (Cost: 1)"},
-            {"Arm Combo", "Deal 6 damage and gain 5 block (Cost: 1)"},
-            {"Ultra Duper Punch", "Deal 100 damage (Cost: 1)"},
-            {"Foot Kick", "Deal 8 damage (Cost: 1)"},
-            {"Leg Block", "Gain 12 block (Cost: 1)"},
-            {"Leg Heal", "Restore 8 HP (Cost: 1)"},
-            {"Leg Combo", "Deal 5 damage and gain 6 block (Cost: 1)"},
-            {"Ultra Duper Kick","Gain 100 block (Cost:1)"},
-            {"ArmDiscard", "Take 3 damage, gain 2 energy (Cost:1)"},
-            {"AutoRepair","Restore 15 HP"},
-            {"Strongest Spell","Instant death"},
-            {"Clink-clock","Do nothing"},
-        };
-        return descriptions.count(cardName) ? descriptions[cardName] : "Unknown card";
-    };
+    /**
+     * @brief Returns the description of a card by name.
+     * @param cardName Name of the card (e.g., "Strike").
+     * @return Predefined description or "Unknown card" if not found.
+     */
+    static std::string getDescription(const std::string& cardName);
 };
 
 #endif

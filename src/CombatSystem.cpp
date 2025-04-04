@@ -12,6 +12,15 @@
 #include <random>
 #include "../include/Game.h"
 
+/**
+ * @brief Initializes the player's deck based on the GameState and shuffles it.
+ * @details Maps card names from `state.current_deck` to concrete card types:
+ * - "Strike" → AttackCard (6 damage)
+ * - "Defend" → DefendCard (5 block)
+ * - "Fist Punch" → AttackCard (12 damage)
+ * - ... (other cards similarly mapped)
+ * - Shuffles the deck using a Mersenne Twister RNG.
+ */
 CombatSystem::CombatSystem(GameState& s):state(s)
 {
     for(const auto& cardName : state.current_deck)
@@ -82,12 +91,19 @@ CombatSystem::CombatSystem(GameState& s):state(s)
     std::mt19937 g(rd());
     std::shuffle(player.deck.begin(), player.deck.end(), g);
 }
+
+/**
+ * @brief Clears input buffer to handle invalid user input.
+ */
+
 void CombatSystem::clearInput()
 {
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
-
+/**
+ * @brief Prints the player's current hand with indices and energy costs.
+ */
 void CombatSystem::printHand()
 {
     std::cout << "\nYour hand:\n";
@@ -97,7 +113,15 @@ void CombatSystem::printHand()
                   << " (Cost: " << player.getHand()[i]->getEnergyCost() << ")\n";
     }
 }
-
+/**
+ * @brief Executes the combat loop until the player or enemy dies.
+ * @details
+ * - Each turn:
+ *   1. Player draws cards and gains energy.
+ *   2. Player selects cards to play or ends the turn.
+ *   3. Enemy uses up to two actions.
+ * - Returns victory status for post-combat logic (e.g., rewards).
+ */
 bool CombatSystem::startCombat()
 {
     while (player.isAlive() && enemy.isAlive())
@@ -161,10 +185,13 @@ bool CombatSystem::startCombat()
     }
     return player.isAlive();
 }
-
+/**
+ * @brief Renders the battle UI with ASCII art and statuses.
+ * @note Uses `system("clear")` for console clearing (platform-dependent).
+ */
 void CombatSystem::printBattleUI()const
 {
-    system("clear");
+    std::cout << "\033c";
     std::cout << R"(
   ╔════════════════════════╗
   ║       BATTLE ARENA     ║

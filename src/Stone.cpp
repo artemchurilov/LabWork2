@@ -7,16 +7,16 @@
 char Stone::getSymbol() const
 {
     return 'S';
-};
+}
 
 bool Stone::isPassable() const
 {
-    return false;
+    return false; // Blocks movement
 }
 
 void Stone::interact(GameState& state)
 {
-    if(state.inventory.energy >= 15)
+    if (state.inventory.energy >= 15)
     {
         state.inventory.energy -= 15;
         state.inventory.stone++;
