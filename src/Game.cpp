@@ -25,14 +25,6 @@ Game::~Game()
     InputSystem::disableRawMode();
 }
 
-void Game::showMainMenu(){
-    MainMenu menu;
-    bool shouldContinue = menu.showMainMenu(state, running);
-    
-    if (!shouldContinue) {
-        running = false;
-    }
-}
 /**
  * @brief Manages the main menu interaction loop.
  * @post Updates `running` flag based on user choice.
