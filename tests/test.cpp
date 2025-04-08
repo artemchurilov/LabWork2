@@ -202,3 +202,155 @@ TEST(BasicAttackTest, ExecuteDamagesTarget) {
 
     EXPECT_TRUE(user.isAlive());
 }
+
+#include "../include/BossMob.h"
+
+TEST(BossMobTest, BasicProperties) {
+    BossMob boss;
+    
+    EXPECT_EQ(boss.getSymbol(), 'B');
+    EXPECT_FALSE(boss.isPassable());
+}
+
+TEST(BossMobTest, InteractWithoutSwordLevel3) {
+    BossMob boss;
+    GameState state;
+    state.inventory.sword_level = 2;
+    
+    boss.interact(state);
+    
+    EXPECT_EQ(state.last_message, "You need sword level 3 to fight boss!");
+    EXPECT_EQ(state.inventory.gold, 0);
+    EXPECT_NE(state.inventory.hp, 0);   
+}
+
+#include "../include/Campfire.h"
+
+TEST(CampfireTest, SymbolIsC) {
+    Campfire campfire;
+    EXPECT_EQ(campfire.getSymbol(), 'C');
+}
+
+TEST(CampfireTest, RestoresHealthAndEnergy) {
+    Campfire campfire;
+    GameState state;
+
+    state.inventory.hp = 50;
+    state.inventory.energy = 20;
+    state.day = 3;
+
+    campfire.interact(state);
+
+    EXPECT_EQ(state.inventory.hp, 100);
+    EXPECT_EQ(state.inventory.energy, 50);
+    EXPECT_EQ(state.day, 4);
+    EXPECT_EQ(state.last_message, "Restored health and energy! New day: 4");
+}
+
+TEST(CampfireTest, RestoresOnlyHealth) {
+    Campfire campfire;
+    GameState state;
+    
+    state.inventory.hp = 80;
+    state.inventory.energy = 50;
+    state.day = 5;
+
+    campfire.interact(state);
+
+    EXPECT_EQ(state.inventory.hp, 100);
+    EXPECT_EQ(state.inventory.energy, 50);
+    EXPECT_EQ(state.day, 6);
+    EXPECT_EQ(state.last_message, "Restored health and energy! New day: 6");
+}
+
+TEST(CampfireTest, RestoresOnlyEnergy) {
+    Campfire campfire;
+    GameState state;
+    
+    state.inventory.hp = 100;
+    state.inventory.energy = 30;
+    state.day = 2;
+
+    campfire.interact(state);
+
+    EXPECT_EQ(state.inventory.hp, 100);
+    EXPECT_EQ(state.inventory.energy, 50);
+    EXPECT_EQ(state.day, 3);
+    EXPECT_EQ(state.last_message, "Restored health and energy! New day: 3");
+}
+
+TEST(CampfireTest, AlreadyFullyRested) {
+    Campfire campfire;
+    GameState state;
+    
+    state.inventory.hp = 100;
+    state.inventory.energy = 50;
+    state.day = 7;
+
+    campfire.interact(state);
+
+    EXPECT_EQ(state.inventory.hp, 100);
+    EXPECT_EQ(state.inventory.energy, 50);
+    EXPECT_EQ(state.day, 7);
+    EXPECT_EQ(state.last_message, "Already fully rested!");
+}
+
+#include "../include/CardShop.h"
+
+TEST(CardShopTest, BasicProperties) {
+    CardShop shop;
+    EXPECT_EQ(shop.getSymbol(), 'K');
+    EXPECT_FALSE(shop.isPassable());
+}
+
+TEST(CardShopTest, HandleChoicePurchaseSuccess) {
+    CardShop shop;
+    GameState state;
+    state.inventory.gold = 100;
+    state.inventory.wood = 50;
+    state.inventory.stone = 10;
+    state.current_deck = {"CardA", "CardB"};
+
+    bool inShop = true;
+    shop.handleChoice(1, state, inShop);
+
+    EXPECT_EQ(state.inventory.gold, 100 - 100);
+    EXPECT_EQ(state.inventory.wood, 50 - 10);
+    EXPECT_EQ(state.inventory.stone, 10 - 0);
+    EXPECT_EQ(state.current_deck.size(), 3);
+    EXPECT_FALSE(inShop);    
+}
+
+TEST(CardShopTest, HandleChoiceInsufficientResources) {
+    CardShop shop;
+    GameState state;
+    state.inventory.gold = 0;
+    bool inShop = true;
+    shop.handleChoice(1, state, inShop);
+
+    EXPECT_EQ(state.last_message, "Not enough resources!");
+    EXPECT_TRUE(state.current_deck.empty());
+    EXPECT_FALSE(inShop);
+}
+
+TEST(CardShopTest, GetShopChoiceValidatesInput) {
+    CardShop shop;
+    
+    std::istringstream input("abc\n5\n2\n");
+    std::cin.rdbuf(input.rdbuf());
+
+    int choice = shop.getShopChoice();
+    EXPECT_EQ(choice, 2);
+}
+
+TEST(CardShopTest, HandleChoiceExit) {
+    CardShop shop;
+    GameState state;
+    bool inShop = true;
+    
+    shop.handleChoice(4, state, inShop);
+    
+    EXPECT_FALSE(inShop);
+    EXPECT_EQ(state.last_message, "Left the card shop");
+}
+
