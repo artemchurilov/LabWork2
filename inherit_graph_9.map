@@ -1,0 +1,9 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classEnemyCard.html" title="Abstract base class for enemy action cards." alt="" coords="5,55,103,80"/>
+<area shape="rect" id="Node000001" href="$classBasicAttack.html" title="A basic enemy attack card with low priority." alt="" coords="152,5,251,31"/>
+<area shape="poly" id="edge5_Node000000_Node000001" title=" " alt="" coords="105,48,162,28,163,33,107,53"/>
+<area shape="rect" id="Node000002" href="$classFireBlast.html" title="High&#45;priority card that deals heavy damage when the player is weakened." alt="" coords="162,55,241,80"/>
+<area shape="poly" id="edge6_Node000000_Node000002" title=" " alt="" coords="117,65,162,65,162,70,117,70"/>
+<area shape="rect" id="Node000003" href="$classMindControl.html" title="Applies the &quot;Weak&quot; effect to the player and heals the enemy." alt="" coords="151,104,252,129"/>
+<area shape="poly" id="edge7_Node000000_Node000003" title=" " alt="" coords="107,82,163,101,162,106,105,87"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="EnemyCard" name="EnemyCard">
+<area shape="rect" id="Node000001" title="Abstract base class for enemy action cards." alt="" coords="119,5,217,31"/>
+<area shape="rect" id="Node000002" href="$classBasicAttack.html" title="A basic enemy attack card with low priority." alt="" coords="5,79,104,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,40,75,81,72,76,136,36"/>
+<area shape="rect" id="Node000003" href="$classFireBlast.html" title="High&#45;priority card that deals heavy damage when the player is weakened." alt="" coords="129,79,207,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="171,44,171,79,165,79,165,44"/>
+<area shape="rect" id="Node000004" href="$classMindControl.html" title="Applies the &quot;Weak&quot; effect to the player and heals the enemy." alt="" coords="232,79,333,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="199,35,265,76,263,81,196,40"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="FireBlast" name="FireBlast">
+<area shape="rect" id="Node000001" title="High&#45;priority card that deals heavy damage when the player is weakened." alt="" coords="15,79,93,104"/>
+<area shape="rect" id="Node000002" href="$classEnemyCard.html" title="Abstract base class for enemy action cards." alt="" coords="5,5,103,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="57,44,57,79,51,79,51,44"/>
+</map>

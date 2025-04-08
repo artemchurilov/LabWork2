@@ -1,0 +1,5 @@
+<map id="MindControl" name="MindControl">
+<area shape="rect" id="Node000001" title="Applies the &quot;Weak&quot; effect to the player and heals the enemy." alt="" coords="5,79,107,104"/>
+<area shape="rect" id="Node000002" href="$classEnemyCard.html" title="Abstract base class for enemy action cards." alt="" coords="7,5,105,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,44,59,79,53,79,53,44"/>
+</map>
