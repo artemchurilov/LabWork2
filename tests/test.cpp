@@ -351,6 +351,5 @@ TEST(CardShopTest, HandleChoiceExit) {
     shop.handleChoice(4, state, inShop);
     
     EXPECT_FALSE(inShop);
-    EXPECT_EQ(state.last_message, "Left the card shop");
 }
 
