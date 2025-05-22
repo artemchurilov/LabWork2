@@ -1,7 +1,7 @@
 name: Generate Docs
 on:
   push:
-    branches: [CI-test, docs, minimal-game]
+    branches: [CI-test, docs, minimal-game, testing]
 jobs:
   build:
     runs-on: ubuntu-latest
