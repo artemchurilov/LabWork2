@@ -7,8 +7,8 @@
 st130184@student.spbu.ru
 ## Build
 
-<par> make tests</par>
+<par> make </par>
 
 ## Run
 
-<par> ./test </par>
+<par> ./prog </par>
