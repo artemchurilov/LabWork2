@@ -1,5 +1,5 @@
 # LabWork2 - Making Game
-# Step 4 - Minimal Game
+# Step 5 - Testing Game
 
 ## Some Info
 The game contains instructions on how to control it, as well as a description of simple mechanics. The rest of the information can be obtained by trial and error, as well as by studying and observing.
