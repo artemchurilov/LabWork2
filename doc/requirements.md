@@ -28,3 +28,10 @@ Use Case Examples:
         Player interacts with CardShop.
         Selects a pack (e.g., "Arms Action" for 100 gold and 10 wood).
         Card is added to the deck or collection.
+
+Compiler and Libraries Requirements
+    Compiler: requires g++ (GCC for C++) with support for the C++17 standard. 
+    Standard Libraries: standard C++ library, mathematical library libm. 
+    Google Test: Libraries: libgtest and libgtest_main.
+    Multithreading 
+    System Utilities: ar utility 
