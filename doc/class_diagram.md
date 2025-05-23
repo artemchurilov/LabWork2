@@ -1,6 +1,6 @@
 Class Diagram Overview
 
-![Class Diagram](./class_diagram.png)
+![Class Diagram](./images/class_diagram.png)
 
 This UML diagram represents a card-based RPG game architecture with the following key components:
 1. Core Game Entities

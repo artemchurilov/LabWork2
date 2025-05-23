@@ -4,7 +4,7 @@
 This diagram illustrates the high-level architecture of the game, focusing on the interaction between major components.  
 The system is designed to be modular, ensuring separation of concerns and ease of future expansion.  
 
-![Component Diagram](./component_diagram.png)
+![Component Diagram](./images/component_diagram.png)
 1. Core Components
 
     GameCore
