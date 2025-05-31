@@ -1,11 +1,14 @@
-# Укажите исходные файлы (папки и файлы)
 INPUT                  = src/ include/
-
-# Включите рекурсивный поиск (чтобы Doxygen искал файлы во вложенных папках)
 RECURSIVE              = YES
-
-# Укажите расширения файлов (если используются нестандартные)
 FILE_PATTERNS          = *.h *.cpp *.md
-
-# Название проекта
 PROJECT_NAME           = "ToyRick"
+OUTPUT_DIRECTORY       = docs           
+GENERATE_HTML          = YES            
+HTML_OUTPUT            = html           
+GENERATE_LATEX         = NO             
+EXTRACT_ALL            = YES            
+EXTRACT_PRIVATE        = YES           
+EXTRACT_STATIC         = YES            
+HAVE_DOT               = YES            
+CALL_GRAPH             = YES            
+CALLER_GRAPH           = YES            
