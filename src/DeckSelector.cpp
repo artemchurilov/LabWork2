@@ -14,7 +14,7 @@
  */
 DeckSelector::DeckType DeckSelector::show()
 {
-    InputSystem::enableRawMode(); // Implemented elsewhere (e.g., Game class)
+    InputSystem::enableRawMode();
     int selection = 0;
     while(true)
     {
@@ -27,7 +27,6 @@ DeckSelector::DeckType DeckSelector::show()
         if(c == 's' && selection < 2) selection++;
         if(c == '\n') break;
     }
-    InputSystem::disableRawMode(); // Implemented elsewhere
     return static_cast<DeckType>(selection);
 }
 

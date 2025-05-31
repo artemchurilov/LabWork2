@@ -78,7 +78,7 @@ void Game::showDeck() {
  * @note Returns to deck view after key press.
  */
 void Game::showCardDetails(const std::string& card) {
-    DeckManager::showCardDetails(state, card); // Delegate to DeckManager
+    DeckManager::showCardDetails(card); // Delegate to DeckManager
 }
 
 /**
@@ -144,6 +144,8 @@ void Game::processInput()
 
         case 'q':
         case 'Q':
+            InputSystem::enableRawMode();
+            usleep(500000);
             running = false;
             break;
         case 'c':

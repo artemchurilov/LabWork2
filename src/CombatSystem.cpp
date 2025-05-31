@@ -10,7 +10,11 @@
 #include "../include/ComboCard.h"
 #include "../include/HealCard.h"
 #include <random>
+#include "../include/const.h"
 #include "../include/Game.h"
+
+#include <thread>
+
 
 /**
  * @brief Initializes the player's deck based on the GameState and shuffles it.
@@ -96,21 +100,27 @@ CombatSystem::CombatSystem(GameState& s):state(s)
  * @brief Clears input buffer to handle invalid user input.
  */
 
-void CombatSystem::clearInput()
-{
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-}
+
 /**
  * @brief Prints the player's current hand with indices and energy costs.
  */
-void CombatSystem::printHand()
-{
-    std::cout << "\nYour hand:\n";
-    for(size_t i = 0; i < player.getHand().size(); ++i)
-    {
-        std::cout << i+1 << ". " << player.getHand()[i]->getName()
-                  << " (Cost: " << player.getHand()[i]->getEnergyCost() << ")\n";
+void CombatSystem::printHand(int selectedIndex) {
+    std::cout << YELLOW << "\n=== YOUR HAND ===\n" << RESET
+              << "Use W/S to navigate, ENTER to play, Q to end turn\n\n";
+    
+    for(size_t i = 0; i < player.getHand().size(); ++i) {
+        if(static_cast<int>(i) == selectedIndex) 
+            std::cout << YELLOW << " > ";
+        else 
+            std::cout << "   "<<RESET;
+            
+        const auto& card = player.getHand()[i];
+        std::cout << card->getName() << " (Cost: " << card->getEnergyCost() << ")";
+        
+        if(card->getEnergyCost() > player.getEnergy()) 
+            std::cout << RED << " [Not enough energy]" << RESET;
+            
+        std::cout << "\n";
     }
 }
 /**
@@ -122,83 +132,136 @@ void CombatSystem::printHand()
  *   3. Enemy uses up to two actions.
  * - Returns victory status for post-combat logic (e.g., rewards).
  */
-bool CombatSystem::startCombat()
-{
-    while (player.isAlive() && enemy.isAlive())
-    {
+bool CombatSystem::startCombat() {
+    InputSystem::enableRawMode();
+    while(player.isAlive() && enemy.isAlive()) {
         turnNumber++;
         player.startTurn();
+        int selectedIndex = 0;
+        bool endTurn = false;
 
-        while (player.getEnergy() > 0 && !player.getHand().empty())
-        {
-            bool endTurn = false;
-            while (true)
-            {
-                printBattleUI();
-                printHand();
-                std::cout << "Choose a card (1-" << player.getHand().size()
-                          << ") or 0 to end turn: ";
-
-                int choice;
-                if (!(std::cin >> choice))
-                {
-                    clearInput();
-                    continue;
-                }
-
-                if (choice == 0)
-                {
+        while(player.getEnergy() > 0 && !player.getHand().empty() && !endTurn) {
+            printBattleUI();
+            printHand(selectedIndex);
+            
+            char input = InputSystem::getKey();
+            switch(input) {
+                case 'w':
+                    if(selectedIndex > 0) selectedIndex--;
+                    break;
+                    
+                case 's': 
+                    if(selectedIndex < static_cast<int>(player.getHand().size()) - 1)
+                        selectedIndex++;
+                    break;
+                    
+                case '\n':
+                    if(selectedIndex >= 0 && selectedIndex < static_cast<int>(player.getHand().size())) {
+                        auto& card = player.getHand()[selectedIndex];
+                        
+                        if(card->getEnergyCost() <= player.getEnergy()) {
+                            card->play(player, enemy);
+                            
+                            player.getHand().erase(player.getHand().begin() + selectedIndex);
+                            
+                            if(selectedIndex >= static_cast<int>(player.getHand().size()) && !player.getHand().empty())
+                                selectedIndex = player.getHand().size() - 1;
+                                
+                            if(!enemy.isAlive()) break;
+                        }
+                    }
+                    break;
+                    
+                case 'q':
                     endTurn = true;
                     break;
-                }
-
-                if (choice < 0 || choice > static_cast<int>(player.getHand().size()))
-                {
-                    std::cout << "Invalid choice!\n";
-                    continue;
-                }
-
-                size_t index = choice - 1;
-                auto& card = player.getHand()[index];
-
-                if (card->getEnergyCost() > player.getEnergy())
-                {
-                    std::cout << "Not enough energy!\n";
-                    continue;
-                }
-
-                card->play(player, enemy);
-                player.getHand().erase(player.getHand().begin() + index);
-                break;
             }
-
-            if (endTurn)
-                break;
+            
+            if(!enemy.isAlive()) break;
         }
 
-        if (enemy.isAlive())
-        {
+        if(enemy.isAlive()) {
             printBattleUI();
+            std::cout << "\n" << RED << "Enemy's turn!" << RESET << "\n";
             enemy.executeTurn(player);
-            usleep(2000000);
+            
+            for(int i = 0; i < 3; i++) {
+                std::cout << "." << std::flush;
+                std::this_thread::sleep_for(std::chrono::milliseconds(500));
+            }
         }
     }
+        if (!player.isAlive()) {
+        playDeathAnimation();
+    }
+
     return player.isAlive();
-}
+};
+
+void CombatSystem::playDeathAnimation() {
+    // Очищаем экран
+    std::cout << "\033c";
+
+    // Кадры анимации смерти
+    const std::vector<std::string> deathFrames = {
+        R"(
+          O 
+         /|\
+         / \
+        )",
+        R"(
+          O 
+         /|\
+         / 
+        )",
+        R"(
+          O 
+         /|
+         / 
+        )",
+        R"(
+          O 
+         / 
+         / 
+        )",
+        R"(
+          O 
+        )",
+        R"(
+          .
+        )",
+        R"(
+        )"
+    };
+
+    for (const auto& frame : deathFrames) {
+        std::cout << "\033c";
+        std::cout << RED << "=== YOU DIED! ===" << RESET << "\n\n";
+        std::cout << frame << "\n";
+        std::this_thread::sleep_for(std::chrono::milliseconds(300));
+    }
+
+    std::cout << "\033c";
+    std::cout << RED <<"You lost the battle..."<<RESET<< "\n"<<"But something gives you the strength to wake up by the fire" << "\n";
+
+    std::cout << "Press any key to continue...";
+    InputSystem::getKey();
+};
+
+
 /**
  * @brief Renders the battle UI with ASCII art and statuses.
  * @note Uses `system("clear")` for console clearing (platform-dependent).
  */
-void CombatSystem::printBattleUI()const
-{
+void CombatSystem::printBattleUI() const {
     std::cout << "\033c";
     std::cout << R"(
   ╔════════════════════════╗
-  ║       BATTLE ARENA     ║
+  ║      BATTLE ARENA      ║
   ╚════════════════════════╝
 )" << '\n';
 
-std::cout << R"(
+    std::cout << R"(
         ,     \    /      ,        
       -/_\-   )\__/(    -/_\-       
      -/   \- (_\  /_)  -/   \-     
@@ -207,13 +270,7 @@ std::cout << R"(
 |              \VV/               |
 )" << "\n";
 
-std::cout << "\n=== Turn " << turnNumber << " ===\n";
-player.printStatus();
-enemy.printStatus();
-
-std::cout << R"(
-  ╔════════════════════════╗
-  ║ CARDS IN HAND          ║
-  ╚════════════════════════╝
-)" << '\n';
+    std::cout << "\n=== Turn " << turnNumber << " ===\n";
+    player.printStatus();
+    enemy.printStatus();
 }

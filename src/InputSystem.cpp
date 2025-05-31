@@ -14,6 +14,7 @@
 
 // Initialize static members
 struct termios InputSystem::orig_termios;
+bool InputSystem::raw_mode_enabled = false;
 /**
  * @brief Enables raw mode by modifying terminal flags.
  * @details
@@ -22,17 +23,31 @@ struct termios InputSystem::orig_termios;
  */
 void InputSystem::enableRawMode()
 {
-    tcgetattr(STDIN_FILENO, &orig_termios);
+    if (raw_mode_enabled) return;
+    if (tcgetattr(STDIN_FILENO, &orig_termios) == -1) {
+        perror("tcgetattr");
+        return;
+    }
     struct termios raw = orig_termios;
     raw.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
+        if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw) == -1) {
+        perror("tcsetattr");
+    } else {
+        raw_mode_enabled = true;
+    }
+
 }
 /**
  * @brief Restores the terminal to its original state.
  */
 void InputSystem::disableRawMode()
 {
-    tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios);
+    if (!raw_mode_enabled) return;
+    if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios) == -1) {
+        perror("tcsetattr");
+    } else {
+        raw_mode_enabled = false; // Сбрасываем флаг
+    }
 }
 
 /**

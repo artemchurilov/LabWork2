@@ -25,8 +25,8 @@ bool Mob::isPassable() const
 
 void Mob::interact(GameState& state)
 {
-    // Calculate damage after shield reduction (5 HP per shield level)
-    int actual_damage = base_damage - (state.inventory.shield_level * 5);
+    // Calculate damage after shield reduction (3 HP per shield level)
+    int actual_damage = base_damage - (state.inventory.shield_level * 3);
     if (actual_damage < 0) actual_damage = 0;
 
     state.inventory.hp -= actual_damage;

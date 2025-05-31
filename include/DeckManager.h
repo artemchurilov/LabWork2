@@ -18,7 +18,7 @@ public:
      * @param state Reference to the GameState containing deck data.
      * @note Temporarily disables raw input mode for text interaction.
      */
-    static void showDeck(const GameState& state);
+    static void showDeck(GameState& state);
 
     /**
      * @brief Shows detailed information about a specific card.
@@ -26,7 +26,7 @@ public:
      * @param card Name of the card to inspect.
      * @details Uses CardManager to retrieve color and description.
      */
-    static void showCardDetails(const GameState& state, const std::string& card);
+    static void showCardDetails(const std::string& card);
 
     /**
      * @brief Replaces a card in the player's deck at the specified index.

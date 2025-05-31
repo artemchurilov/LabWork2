@@ -37,8 +37,11 @@ public:
      * @return The ASCII character of the pressed key.
      */
     static char getKey();
+
+    static char getKeyInternal();
 private:
     static struct termios orig_termios; ///< Original terminal settings to restore later.
+    static bool raw_mode_enabled;
 };
 
 #endif

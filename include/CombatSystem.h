@@ -41,7 +41,7 @@ public:
     /**
      * @brief Prints the list of cards in the player's hand with their energy costs.
      */
-    void printHand();
+    void printHand(int selectedIndex);
 
     /**
      * @brief Starts and manages the combat loop.
@@ -52,6 +52,7 @@ public:
      * - Enemy uses up to two actions per turn.
      */
     bool startCombat();
+    void playDeathAnimation();
 };
 
 #endif

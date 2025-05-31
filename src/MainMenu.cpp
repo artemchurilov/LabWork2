@@ -50,6 +50,7 @@ bool MainMenu::showMainMenu(GameState& state, bool& running)
             selector.selectDeck(state);
             return true;
         case MainMenu::RULES:
+            InputSystem::enableRawMode();
             showRulesScreen();
             break;
         case MainMenu::QUIT:

@@ -55,7 +55,6 @@ void CardShop::renderShopInterface(const GameState& state) const {
               << "  Wood: " << state.inventory.wood
               << "  Stone: " << state.inventory.stone << "\n\n";
 
-    // Отображаем доступные пакеты
     for(size_t i = 0; i < packs.size(); ++i) {
         if(static_cast<int>(i) == selectedItem) std::cout << YELLOW << " > ";
         else std::cout << "   ";

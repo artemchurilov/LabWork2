@@ -25,8 +25,8 @@ struct GameState
         int gold = 0;            ///< Gold currency.
         int wood = 0;            ///< Wood resource (for crafting/upgrades).
         int stone = 0;           ///< Stone resource (for crafting/upgrades).
-        int sword_level = 1;     ///< Sword upgrade level (starts at 1).
-        int shield_level = 1;    ///< Shield upgrade level (starts at 1).
+        int sword_level = 0;     ///< Sword upgrade level (starts at 0).
+        int shield_level = 0;    ///< Shield upgrade level (starts at 0).
     } inventory;
 
     std::vector<std::string> deck_cards;    ///< All unlocked cards in the player's collection.
