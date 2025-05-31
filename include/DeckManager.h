@@ -11,7 +11,8 @@
  * @brief Utility class for managing the player's deck and card interactions.
  * @details Provides static methods to display, inspect, and modify the player's deck.
  */
-class DeckManager {
+class DeckManager
+{
 public:
     /**
      * @brief Displays the player's current deck with colored card names.

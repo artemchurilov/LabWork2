@@ -17,11 +17,12 @@
 class CardShop : public GameObject
 {
 private:
-    int selectedItem = 0;
-    std::string message;
-    bool inReplaceMode = false;
-    int replaceIndex = 0;
-    std::string newCard;
+    bool inCardShop = false;       ///< Flag indicating if player is in shop
+    int selectedItem = 0;          ///< Currently selected pack in main menu
+    std::string message;           ///< Status message to display
+    bool inReplaceMode = false;    ///< Flag for card replacement mode
+    int replaceIndex = 0;          ///< Selected card index for replacement
+    std::string newCard;           ///< Newly acquired card awaiting placement
 public:
     /**
      * @struct CardPack
@@ -57,11 +58,39 @@ public:
      */
     void interact(GameState& state) override;
 
-    bool inCardShop = false;
-
     void renderShopInterface(const GameState& state) const;
+        /**
+     * @brief Renders card replacement interface
+     * @param state Current game state for deck display
+     * 
+     * @details
+     * - Shows newly acquired card
+     * - Lists current deck cards with descriptions
+     * - Highlights currently selected card to replace
+     */
     void renderReplaceInterface(const GameState& state) const;
+        
+    /**
+     * @brief Handles keyboard input for shop navigation
+     * @param state Current game state to modify
+     * 
+     * @details
+     * - Processes input differently based on current mode:
+     *   - Main shop mode: Navigation between packs and exit
+     *   - Replacement mode: Navigation through deck cards
+     * - Manages purchase logic and resource deduction
+     * - Handles card replacement when deck is full
+     */
     void handleInput(GameState& state);
+    /**
+     * @brief Selects a random card from a pack using weighted probabilities
+     * @param pack Card pack to select from
+     * @return Name of selected card
+     * 
+     * @details
+     * - Weights are based on card rarity values
+     * - Uses Mersenne Twister for random selection
+     */
     std::string getRandomCard(const CardPack& pack) const;
 
     /**

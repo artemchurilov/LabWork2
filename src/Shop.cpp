@@ -1,20 +1,26 @@
+/* Artem Churilov st130184@student.spbu.ru
+    LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
+*/
 
 #include "../include/Shop.h"
 #include "../include/InputSystem.h"
 #include <iostream>
 #include "../include/const.h"
 
-void Shop::interact(GameState& state) {
+void Shop::interact(GameState& state)
+{
     inShop = true;
-    while(inShop) {
+    while(inShop)
+    {
         renderShopInterface(state);
         handleShopInput(state);
     }
 }
 
-void Shop::renderShopInterface(const GameState& state) {
+void Shop::renderShopInterface(const GameState& state)
+{
     std::cout << "\033c";
-    
+
     std::cout << R"(
 ╔═══════════════════════════════════╗
 ║           BLACKSMITH'S            ║

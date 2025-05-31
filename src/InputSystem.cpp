@@ -24,15 +24,19 @@ bool InputSystem::raw_mode_enabled = false;
 void InputSystem::enableRawMode()
 {
     if (raw_mode_enabled) return;
-    if (tcgetattr(STDIN_FILENO, &orig_termios) == -1) {
+    if (tcgetattr(STDIN_FILENO, &orig_termios) == -1)
+    {
         perror("tcgetattr");
         return;
     }
     struct termios raw = orig_termios;
     raw.c_lflag &= ~(ICANON | ECHO);
-        if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw) == -1) {
+    if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw) == -1)
+    {
         perror("tcsetattr");
-    } else {
+    }
+    else
+    {
         raw_mode_enabled = true;
     }
 
@@ -43,9 +47,12 @@ void InputSystem::enableRawMode()
 void InputSystem::disableRawMode()
 {
     if (!raw_mode_enabled) return;
-    if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios) == -1) {
+    if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios) == -1)
+    {
         perror("tcsetattr");
-    } else {
+    }
+    else
+    {
         raw_mode_enabled = false; // Сбрасываем флаг
     }
 }

@@ -12,13 +12,15 @@
  * @brief Handles the display and interaction logic for the game's main menu.
  * @details Manages menu navigation, rule screens, and delegates game state changes.
  */
-class MainMenu {
+class MainMenu
+{
 public:
     /**
      * @enum MenuResult
      * @brief Possible outcomes of menu interaction.
      */
-    enum MenuResult { 
+    enum MenuResult
+    {
         START,  ///< Start a new game.
         RULES,  ///< Show the rules screen.
         QUIT    ///< Exit the game.
@@ -27,15 +29,17 @@ public:
     /**
      * @brief Displays the main menu and processes user input.
      * @return MenuResult Selected menu option (START, RULES, or QUIT).
-     * @details 
+     * @details
      * - Uses arrow keys (W/S) for navigation.
      * - Enter key confirms selection.
      * - Temporarily enables raw terminal input mode.
      */
-    MenuResult show() {
+    MenuResult show()
+    {
         InputSystem::enableRawMode();
         int selection = 0;
-        while(true) {
+        while(true)
+        {
             system("clear");
             printTitle();
             printOptions(selection);
@@ -51,7 +55,7 @@ public:
 
     /**
      * @brief Renders the game rules and controls screen.
-     * @details 
+     * @details
      * - Uses ANSI escape codes for colored text.
      * - Waits for any key press to return to the menu.
      */

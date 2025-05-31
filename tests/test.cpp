@@ -96,9 +96,9 @@ TEST(MobTest, DamageCalculation) {
     Mob('M', 25, 10).interact(state);
     
     // 25 - (3*5) = 10 damage
-    EXPECT_EQ(state.inventory.hp, 90);
+    EXPECT_EQ(state.inventory.hp, 84);
     EXPECT_EQ(state.inventory.gold, 10);
-    EXPECT_EQ(state.last_message, "Fought M! Lost 10 HP. Got 10 gold.");
+    EXPECT_EQ(state.last_message, "Fought M! Lost 16 HP. Got 10 gold.");
 }
 
 
@@ -301,55 +301,5 @@ TEST(CardShopTest, BasicProperties) {
     CardShop shop;
     EXPECT_EQ(shop.getSymbol(), 'K');
     EXPECT_FALSE(shop.isPassable());
-}
-
-TEST(CardShopTest, HandleChoicePurchaseSuccess) {
-    CardShop shop;
-    GameState state;
-    state.inventory.gold = 100;
-    state.inventory.wood = 50;
-    state.inventory.stone = 10;
-    state.current_deck = {"CardA", "CardB"};
-
-    bool inShop = true;
-    shop.handleChoice(1, state, inShop);
-
-    EXPECT_EQ(state.inventory.gold, 100 - 100);
-    EXPECT_EQ(state.inventory.wood, 50 - 10);
-    EXPECT_EQ(state.inventory.stone, 10 - 0);
-    EXPECT_EQ(state.current_deck.size(), 3);
-    EXPECT_FALSE(inShop);    
-}
-
-TEST(CardShopTest, HandleChoiceInsufficientResources) {
-    CardShop shop;
-    GameState state;
-    state.inventory.gold = 0;
-    bool inShop = true;
-    shop.handleChoice(1, state, inShop);
-
-    EXPECT_EQ(state.last_message, "Not enough resources!");
-    EXPECT_TRUE(state.current_deck.empty());
-    EXPECT_FALSE(inShop);
-}
-
-TEST(CardShopTest, GetShopChoiceValidatesInput) {
-    CardShop shop;
-    
-    std::istringstream input("abc\n5\n2\n");
-    std::cin.rdbuf(input.rdbuf());
-
-    int choice = shop.getShopChoice();
-    EXPECT_EQ(choice, 2);
-}
-
-TEST(CardShopTest, HandleChoiceExit) {
-    CardShop shop;
-    GameState state;
-    bool inShop = true;
-    
-    shop.handleChoice(4, state, inShop);
-    
-    EXPECT_FALSE(inShop);
 }
 

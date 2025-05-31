@@ -29,10 +29,12 @@ Game::~Game()
  * @brief Manages the main menu interaction loop.
  * @post Updates `running` flag based on user choice.
  */
-void Game::showMainMenu() {
+void Game::showMainMenu()
+{
     MainMenu menu;
     bool shouldContinue = menu.showMainMenu(state, running);
-    if (!shouldContinue) {
+    if (!shouldContinue)
+    {
         running = false; // Propagate quit decision to game loop
     }
 }
@@ -41,7 +43,8 @@ void Game::showMainMenu() {
  * @brief Initializes deck selection process.
  * @post Modifies `state.current_deck` with selected cards.
  */
-void Game::selectDeck() {
+void Game::selectDeck()
+{
     DeckSelector selector;
     selector.selectDeck(state); // Delegate to DeckSelector
 }
@@ -50,7 +53,8 @@ void Game::selectDeck() {
  * @brief Triggers display of game rules.
  * @details Uses ANSI escape codes for formatted output.
  */
-void Game::showRulesScreen() {
+void Game::showRulesScreen()
+{
     MainMenu menu;
     menu.showRulesScreen(); // Delegate to MainMenu
 }
@@ -60,7 +64,8 @@ void Game::showRulesScreen() {
  * @param index Position of the card to replace (0-based).
  * @post Modifies `state.current_deck`.
  */
-void Game::replaceCard(int index) {
+void Game::replaceCard(int index)
+{
     DeckManager::replaceCard(state, index); // Delegate to DeckManager
 }
 
@@ -68,7 +73,8 @@ void Game::replaceCard(int index) {
  * @brief Renders the player's deck with colored card names.
  * @details Temporarily disables raw input mode for text interaction.
  */
-void Game::showDeck() {
+void Game::showDeck()
+{
     DeckManager::showDeck(state); // Delegate to DeckManager
 }
 
@@ -77,7 +83,8 @@ void Game::showDeck() {
  * @param card Name of the card to display.
  * @note Returns to deck view after key press.
  */
-void Game::showCardDetails(const std::string& card) {
+void Game::showCardDetails(const std::string& card)
+{
     DeckManager::showCardDetails(card); // Delegate to DeckManager
 }
 

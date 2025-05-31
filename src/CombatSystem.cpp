@@ -104,22 +104,24 @@ CombatSystem::CombatSystem(GameState& s):state(s)
 /**
  * @brief Prints the player's current hand with indices and energy costs.
  */
-void CombatSystem::printHand(int selectedIndex) {
+void CombatSystem::printHand(int selectedIndex)
+{
     std::cout << YELLOW << "\n=== YOUR HAND ===\n" << RESET
               << "Use W/S to navigate, ENTER to play, Q to end turn\n\n";
-    
-    for(size_t i = 0; i < player.getHand().size(); ++i) {
-        if(static_cast<int>(i) == selectedIndex) 
+
+    for(size_t i = 0; i < player.getHand().size(); ++i)
+    {
+        if(static_cast<int>(i) == selectedIndex)
             std::cout << YELLOW << " > ";
-        else 
+        else
             std::cout << "   "<<RESET;
-            
+
         const auto& card = player.getHand()[i];
         std::cout << card->getName() << " (Cost: " << card->getEnergyCost() << ")";
-        
-        if(card->getEnergyCost() > player.getEnergy()) 
+
+        if(card->getEnergyCost() > player.getEnergy())
             std::cout << RED << " [Not enough energy]" << RESET;
-            
+
         std::cout << "\n";
     }
 }
@@ -132,78 +134,89 @@ void CombatSystem::printHand(int selectedIndex) {
  *   3. Enemy uses up to two actions.
  * - Returns victory status for post-combat logic (e.g., rewards).
  */
-bool CombatSystem::startCombat() {
+bool CombatSystem::startCombat()
+{
     InputSystem::enableRawMode();
-    while(player.isAlive() && enemy.isAlive()) {
+    while(player.isAlive() && enemy.isAlive())
+    {
         turnNumber++;
         player.startTurn();
         int selectedIndex = 0;
         bool endTurn = false;
 
-        while(player.getEnergy() > 0 && !player.getHand().empty() && !endTurn) {
+        while(player.getEnergy() > 0 && !player.getHand().empty() && !endTurn)
+        {
             printBattleUI();
             printHand(selectedIndex);
-            
+
             char input = InputSystem::getKey();
-            switch(input) {
-                case 'w':
-                    if(selectedIndex > 0) selectedIndex--;
-                    break;
-                    
-                case 's': 
-                    if(selectedIndex < static_cast<int>(player.getHand().size()) - 1)
-                        selectedIndex++;
-                    break;
-                    
-                case '\n':
-                    if(selectedIndex >= 0 && selectedIndex < static_cast<int>(player.getHand().size())) {
-                        auto& card = player.getHand()[selectedIndex];
-                        
-                        if(card->getEnergyCost() <= player.getEnergy()) {
-                            card->play(player, enemy);
-                            
-                            player.getHand().erase(player.getHand().begin() + selectedIndex);
-                            
-                            if(selectedIndex >= static_cast<int>(player.getHand().size()) && !player.getHand().empty())
-                                selectedIndex = player.getHand().size() - 1;
-                                
-                            if(!enemy.isAlive()) break;
-                        }
+            switch(input)
+            {
+            case 'w':
+                if(selectedIndex > 0) selectedIndex--;
+                break;
+
+            case 's':
+                if(selectedIndex < static_cast<int>(player.getHand().size()) - 1)
+                    selectedIndex++;
+                break;
+
+            case '\n':
+                if(selectedIndex >= 0 && selectedIndex < static_cast<int>(player.getHand().size()))
+                {
+                    auto& card = player.getHand()[selectedIndex];
+
+                    if(card->getEnergyCost() <= player.getEnergy())
+                    {
+                        card->play(player, enemy);
+
+                        player.getHand().erase(player.getHand().begin() + selectedIndex);
+
+                        if(selectedIndex >= static_cast<int>(player.getHand().size()) && !player.getHand().empty())
+                            selectedIndex = player.getHand().size() - 1;
+
+                        if(!enemy.isAlive()) break;
                     }
-                    break;
-                    
-                case 'q':
-                    endTurn = true;
-                    break;
+                }
+                break;
+
+            case 'q':
+                endTurn = true;
+                break;
             }
-            
+
             if(!enemy.isAlive()) break;
         }
 
-        if(enemy.isAlive()) {
+        if(enemy.isAlive())
+        {
             printBattleUI();
             std::cout << "\n" << RED << "Enemy's turn!" << RESET << "\n";
             enemy.executeTurn(player);
-            
-            for(int i = 0; i < 3; i++) {
+
+            for(int i = 0; i < 3; i++)
+            {
                 std::cout << "." << std::flush;
                 std::this_thread::sleep_for(std::chrono::milliseconds(500));
             }
         }
     }
-        if (!player.isAlive()) {
+    if (!player.isAlive())
+    {
         playDeathAnimation();
     }
 
     return player.isAlive();
 };
 
-void CombatSystem::playDeathAnimation() {
+void CombatSystem::playDeathAnimation()
+{
     // Очищаем экран
     std::cout << "\033c";
 
     // Кадры анимации смерти
-    const std::vector<std::string> deathFrames = {
+    const std::vector<std::string> deathFrames =
+    {
         R"(
           O 
          /|\
@@ -234,7 +247,8 @@ void CombatSystem::playDeathAnimation() {
         )"
     };
 
-    for (const auto& frame : deathFrames) {
+    for (const auto& frame : deathFrames)
+    {
         std::cout << "\033c";
         std::cout << RED << "=== YOU DIED! ===" << RESET << "\n\n";
         std::cout << frame << "\n";
@@ -253,7 +267,8 @@ void CombatSystem::playDeathAnimation() {
  * @brief Renders the battle UI with ASCII art and statuses.
  * @note Uses `system("clear")` for console clearing (platform-dependent).
  */
-void CombatSystem::printBattleUI() const {
+void CombatSystem::printBattleUI() const
+{
     std::cout << "\033c";
     std::cout << R"(
   ╔════════════════════════╗
