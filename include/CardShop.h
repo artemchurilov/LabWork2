@@ -16,6 +16,12 @@
  */
 class CardShop : public GameObject
 {
+private:
+    int selectedItem = 0;
+    std::string message;
+    bool inReplaceMode = false;
+    int replaceIndex = 0;
+    std::string newCard;
 public:
     /**
      * @struct CardPack
@@ -51,39 +57,11 @@ public:
      */
     void interact(GameState& state) override;
 
-    /**
-     * @brief Renders the shop UI with available packs and player resources.
-     * @param state GameState for current player stats.
-     */
-    void printShopArt(const GameState& state) const;
+    bool inCardShop = false;
 
-    /**
-     * @brief Validates and returns the player's menu choice (1-4).
-     * @return Validated integer input.
-     */
-    int getShopChoice() const;
-
-    /**
-     * @brief Processes the player's choice (buying a pack or exiting).
-     * @param choice Selected menu option (1-4).
-     * @param state GameState to modify.
-     * @param inShop Reference flag to control the shop loop.
-     */
-    void handleChoice(int choice, GameState& state, bool& inShop);
-
-    /**
-     * @brief Validates and returns a choice within a specified range.
-     * @param min Minimum allowed value.
-     * @param max Maximum allowed value.
-     * @return Validated integer input.
-     */
-    int getShopChoice(int min, int max) const;
-
-    /**
-     * @brief Randomly selects a card from a pack based on weighted probabilities.
-     * @param pack Reference to the CardPack to draw from.
-     * @return Name of the selected card.
-     */
+    void renderShopInterface(const GameState& state) const;
+    void renderReplaceInterface(const GameState& state) const;
+    void handleInput(GameState& state);
     std::string getRandomCard(const CardPack& pack) const;
 
     /**
