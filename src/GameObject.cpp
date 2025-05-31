@@ -2,13 +2,8 @@
     LabWork 2 task "Making Game" step 4 "Create Simple Game Engine"
 */
 
-
-#include "../include/Game.h"
-
-int main()
+#include "../include/GameObject.h"
+bool GameObject::isPassable() const
 {
-    srand(time(NULL));
-    Game game;
-    game.run();
-    return 0;
-}
+    return true;
+};

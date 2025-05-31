@@ -1,0 +1,24 @@
+name: Generate Docs
+on:
+  push:
+    branches: [CI-test, docs, minimal-game]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+        contents: write
+        pages: write 
+        id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Doxygen
+        run: sudo apt-get install doxygen graphviz
+      - name: Generate Docs
+        run: doxygen Doxyfile
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./html
+          force_orphan: true
+          keep_files: false 

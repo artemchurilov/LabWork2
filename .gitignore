@@ -1,0 +1,10 @@
+html/
+latex/
+xml/
+
+*.exe
+*.o
+*.a
+*.d
+
+prog
