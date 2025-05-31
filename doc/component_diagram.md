@@ -4,79 +4,104 @@
 This diagram illustrates the high-level architecture of the game, focusing on the interaction between major components.  
 The system is designed to be modular, ensuring separation of concerns and ease of future expansion.  
 
-![Component Diagram](./component_diagram.png)  
+![Component Diagram](./images/component_diagram.png)
+1. Core Components
 
----
+    GameCore
+    Central hub coordinating game logic and systems.
 
-## Components  
+        Key Relationships:
 
-### 1. **Core Engine**  
-- **Responsibility**:  
-  - Manages the game loop (input processing, updates, rendering).  
-  - Maintains global state: player stats, enemy positions, day counter.  
-- **Key Interactions**:  
-  - Uses **Map Manager** to validate movement and collisions.  
-  - Triggers **Combat System** when the player encounters enemies.  
-  - Notifies **UI Renderer** to update the console output.  
+            Receives input via GameControl.
 
-### 2. **Map Manager**  
-- **Responsibility**:  
-  - Stores the 20x20 grid-based map (hardcoded symbols: `T`, `M`, `B`, `#`).  
-  - Handles collision detection (walls, impassable terrain).  
-- **Key Data Structure**:  
-  ```cpp  
-  // Example map definition  
-  char grid[20][20] = {  
-    {'#', '.', 'T', 'M', ...},  
-    // ...  
-  };  
+            Manages GameMap through the "Access to Map" interface.
 
-### 3. **Combat System**
-- **Responsibility**:
-  - Calculates damage using the formula: (Player Attack * Level) - Enemy Defense.
-  - Handles loot distribution (gold from mobs, unique items from bosses).
-  - Implements boss chase AI (5-tile radius).
-- **Key Interactions**:
-  - Updates Resource System with gold earned from defeated mobs.
+            Coordinates with CombatSystem and PlayerState.
 
-### 4. Resource System
- - **Responsibility**:
-  - Tracks player resources: wood, stone, gold.
-  - Provides resource data to the Shop System for upgrades.
- - **UI Integration**:
-        Pressing R displays resources via UI Renderer.
+    GameMap
+    Handles map data and spatial interactions.
 
-### 5. Shop System
- - **Responsibility**:
-   - Handles gear upgrades (e.g., sword damage, armor defense).
-   - Validates upgrade costs (e.g., "50 gold + 20 stone").
- - **Key Interactions**:
-    Deducts resources via Resource System after purchases.
+        Interface: Provides "Access to Map" to GameCore.
 
-### 6. UI Renderer
- - **Responsibility**:
-  - Renders the map, player stats, and menus in the console.
-  - Uses ANSI escape codes for colored output (e.g., red for enemies).
+2. Player-Related Modules
 
-## Component Interactions
-### Scenario 1: **Player Movement**
-    Core Engine receives W/A/S/D input.
-    Map Manager checks if the target tile is walkable.
-    If valid, Core Engine updates the player's position.
-    UI Renderer redraws the map.
+    Player
+    Represents the player entity.
 
-### Scenario 2: **Boss Fight**
-    Core Engine detects player-boss proximity.
-    Combat System initiates turn-based combat.
-    On victory, Resource System grants a unique item.
-    UI Renderer displays "Boss defeated! +1 Ruby Sword."
+        Connection: Linked to GameControl for input handling.
 
-### Scenario 3: **Campfire Rest**
-    Player interacts with a campfire (E key).
-    Resource System deducts 5 wood.
-    Core Engine resets player energy and increments the day counter.
-    UI Renderer shows "Energy restored! Day 6."
+    PlayerState
+    Tracks player status (health, inventory, etc.).
 
-## Notes
-    All components are implemented in C++17 without external libraries.
-    The map is hardcoded for simplicity but can be extended to file-based loading later.
+        Dependencies:
+
+            Updates ShopSystem (e.g., currency, item unlocks).
+
+            Informs GameCore about state changes.
+
+    PlayerDeck
+    Manages player’s cards/abilities (likely for combat or progression).
+
+        Relationships:
+
+            Receives new cards via ShopSystem ("add cards").
+
+            Depends on GameCore for integration into gameplay.
+
+3. Systems
+
+    CombatSystem
+    Handles battle mechanics (damage, abilities, enemy AI).
+
+        Key Links:
+
+            Depends on BattleControl for combat flow.
+
+            Feeds results back to GameCore.
+
+    ShopSystem
+    Manages in-game purchases and upgrades.
+
+        Dependencies:
+
+            Uses PlayerState to validate transactions.
+
+            Sends new items/cards to PlayerDeck.
+
+    GameControl
+    Processes player input and relays it to GameCore.
+
+        Role: Acts as a bridge between Player actions and core logic.
+
+4. Interfaces & Dependencies
+
+    Interfaces:
+
+        Provided Interfaces (e.g., GameMap → GameCore): Define services a module offers.
+
+        Required Interfaces (e.g., CombatSystem → BattleControl): Specify dependencies on external systems.
+
+    Dependency Patterns:
+
+        Dashed arrows indicate weaker dependencies (e.g., PlayerState → ShopSystem).
+
+        Solid arrows represent direct associations or data flow (e.g., Player → GameControl).
+
+5. Key Interactions
+
+    Player Input Flow:
+    Player → GameControl → GameCore → (affects GameMap, CombatSystem).
+
+    Combat Execution:
+    CombatSystem ↔ BattleControl → Results modify PlayerState/GameCore.
+
+    Shop Transactions:
+    ShopSystem updates PlayerDeck and PlayerState based on purchases.
+
+6. Design Principles
+
+    Modularity: Clear separation of concerns (e.g., GameMap for spatial logic, CombatSystem for battles).
+
+    Loose Coupling: Interfaces (Access to Map, BattleControl) decouple systems.
+
+    Central Coordination: GameCore orchestrates interactions between subsystems.
